@@ -1,0 +1,150 @@
+object-group network ip001
+ host 10.0.2.1
+!
+object-group network ip002
+ host 10.0.2.2
+!
+ object-group fqdn fqdn001
+  pattern www001\.cisco\.com
+ !
+ object-group fqdn fqdn002
+  pattern www002\.cisco\.com
+ !
+ object-group fqdn fqdn003
+  pattern www003\.cisco\.com
+ !
+ object-group fqdn fqdn004
+  pattern www004\.cisco\.com
+ !
+object-group service Rule00001
+ ip
+ exit
+!
+ip access-list extended  acl00001
+ 11 permit object-group Rule00001 object-group ip001 fqdn-group fqdn001
+!
+class-map type inspect match-all seq00001
+ match access-group name  acl00001
+!
+!
+object-group service Rule00002
+ ip
+ exit
+!
+ip access-list extended  acl00002
+ 11 permit object-group Rule00002 object-group ip001 fqdn-group fqdn002
+!
+class-map type inspect match-all seq00002
+ match access-group name  acl00002
+!
+!
+object-group service Rule00003
+ ip
+ exit
+!
+ip access-list extended  acl00003
+ 11 permit object-group Rule00003 object-group ip001 fqdn-group fqdn003
+!
+class-map type inspect match-all seq00003
+ match access-group name  acl00003
+!
+!
+object-group service Rule00004
+ ip
+ exit
+!
+ip access-list extended  acl00004
+ 11 permit object-group Rule00004 object-group ip001 fqdn-group fqdn004
+!
+class-map type inspect match-all seq00004
+ match access-group name  acl00004
+!
+!
+object-group service Rule00005
+ ip
+ exit
+!
+ip access-list extended  acl00005
+ 11 permit object-group Rule00005 object-group ip002 fqdn-group fqdn001
+!
+class-map type inspect match-all seq00005
+ match access-group name  acl00005
+!
+!
+object-group service Rule00006
+ ip
+ exit
+!
+ip access-list extended  acl00006
+ 11 permit object-group Rule00006 object-group ip002 fqdn-group fqdn002
+!
+class-map type inspect match-all seq00006
+ match access-group name  acl00006
+!
+!
+object-group service Rule00007
+ ip
+ exit
+!
+ip access-list extended  acl00007
+ 11 permit object-group Rule00007 object-group ip002 fqdn-group fqdn003
+!
+class-map type inspect match-all seq00007
+ match access-group name  acl00007
+!
+!
+object-group service Rule00008
+ ip
+ exit
+!
+ip access-list extended  acl00008
+ 11 permit object-group Rule00008 object-group ip002 fqdn-group fqdn004
+!
+class-map type inspect match-all seq00008
+ match access-group name  acl00008
+!
+!
+policy-map type inspect FW-FQDN
+ class type inspect seq00001
+  pass log
+ !
+ class type inspect seq00002
+  pass log
+ !
+ class type inspect seq00003
+  pass log
+ !
+ class type inspect seq00004
+  pass log
+ !
+ class type inspect seq00005
+  pass log
+ !
+ class type inspect seq00006
+  pass log
+ !
+ class type inspect seq00007
+  pass log
+ !
+ class type inspect seq00008
+  pass log
+ !
+ class class-default
+  drop
+ !
+!
+zone security internal
+!
+zone security external
+!
+interface GigabitEthernet3
+ zone-member security internal
+ exit
+!
+interface GigabitEthernet3
+ zone-member security external
+exit
+!
+zone-pair security ZP_FW source internal destination external
+ service-policy type inspect FW-FQDN
+
