@@ -1,0 +1,3095 @@
+C8500-1#sh run
+Building configuration...
+
+Current configuration : 76702 bytes
+!
+! Last configuration change at 03:24:18 UTC Fri Sep 30 2022
+!
+version 17.3
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service call-home
+platform qfp utilization monitor load 80
+platform punt-keepalive disable-kernel-core
+!
+hostname C8500-1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition IOT
+ !
+ address-family ipv4
+ exit-address-family
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf definition USER
+ rd 64501:1
+ !
+ address-family ipv4
+ exit-address-family
+!
+!
+aaa new-model
+!
+!
+aaa group server radius eap-server
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+login on-success log
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-116892666
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-116892666
+ revocation-check none
+ rsakeypair TP-self-signed-116892666
+!
+crypto pki trustpoint SLA-TrustPoint
+ enrollment pkcs12
+ revocation-check crl
+!
+!
+crypto pki certificate chain TP-self-signed-116892666
+ certificate self-signed 01
+  3082032E 30820216 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 31313638 39323636 36301E17 0D323230 38323430 37313735 
+  365A170D 33323038 32333037 31373536 5A303031 2E302C06 03550403 1325494F 
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3131 36383932 
+  36363630 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 
+  82010100 E8E18D7A 760EC079 234BE70E 2E5BEF4C C5E5230C AFEA9A1B FFC9D357 
+  D497A48E 35847CAC 26F7D66C 996A98D7 281FF6BB 5A64FA3D FB81EFAD A200A9F8 
+  63DF705A C3F2D310 D6784921 F4FD7F67 4EB0F928 6B82E32F 76DE0532 E95064C6 
+  E1F9558F 1BC711BE 9D65C7CA FFAF7B8C 5A0FF9BD 7A32744A 66B3904C 88921BA0 
+  16FA909A 569BF727 3EED81CD E8007E32 CF44F125 9F0B6F51 B0FA7489 AB9615BD 
+  53A85C34 2A2400CE D9B316B7 ECDB696E 79005168 B943A141 9273633F F8AF1D96 
+  8A1F8C3B 241D47CF FAE3C2B4 E1CADFD2 2CA68BC3 71980378 4B67AC6E 4887E6B3 
+  8D23437A 045D10DC 5C626B81 CBC6B7A5 05890ACF 48274BC4 CE112D8D 78A95F44 
+  7FB0374F 02030100 01A35330 51300F06 03551D13 0101FF04 05300301 01FF301F 
+  0603551D 23041830 16801401 F64FAA49 F739A3DB FA329DD1 B2AB604B 071A2830 
+  1D060355 1D0E0416 041401F6 4FAA49F7 39A3DBFA 329DD1B2 AB604B07 1A28300D 
+  06092A86 4886F70D 01010505 00038201 010098A0 BDF44325 DFED4E6A 3B6E00D7 
+  7005F97A DCFC0112 418170DD 584F0C3B 38A11752 E7D81B44 DFEEF295 622057BE 
+  CF81FE1B A3FB0601 6690A42E DBF46C68 90772992 F54DAC35 1B3766D2 A2D68816 
+  7F83AD5D D3A12FC6 3CE8DFC4 10F1779C 4005CD66 1AF6FADC 0B8FEC24 6A94BC8A 
+  856FC496 26C57583 BA38BD0E 1089879B 2650B726 80BE357F 606748C8 0257009C 
+  A1BD8155 EBF1CBA6 3BEE45EE 42D2204E 02BD0C90 31F2E347 C3C5BEC3 A1218629 
+  8E44ADEC 68E3F286 07A18C6E A2277727 918A1D4E 1754996D 56647DC4 F0CE7C6C 
+  AEBAB019 C63CA6F5 74C576DC 824915DB D1E32C43 6DAC8365 8BBA04B6 522C5F40 
+  A15D0D12 C2686923 8262521E 837E5C07 5E90
+  	quit
+crypto pki certificate chain SLA-TrustPoint
+ certificate ca 01
+  30820321 30820209 A0030201 02020101 300D0609 2A864886 F70D0101 0B050030 
+  32310E30 0C060355 040A1305 43697363 6F312030 1E060355 04031317 43697363 
+  6F204C69 63656E73 696E6720 526F6F74 20434130 1E170D31 33303533 30313934 
+  3834375A 170D3338 30353330 31393438 34375A30 32310E30 0C060355 040A1305 
+  43697363 6F312030 1E060355 04031317 43697363 6F204C69 63656E73 696E6720 
+  526F6F74 20434130 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 
+  82010A02 82010100 A6BCBD96 131E05F7 145EA72C 2CD686E6 17222EA1 F1EFF64D 
+  CBB4C798 212AA147 C655D8D7 9471380D 8711441E 1AAF071A 9CAE6388 8A38E520 
+  1C394D78 462EF239 C659F715 B98C0A59 5BBB5CBD 0CFEBEA3 700A8BF7 D8F256EE 
+  4AA4E80D DB6FD1C9 60B1FD18 FFC69C96 6FA68957 A2617DE7 104FDC5F EA2956AC 
+  7390A3EB 2B5436AD C847A2C5 DAB553EB 69A9A535 58E9F3E3 C0BD23CF 58BD7188 
+  68E69491 20F320E7 948E71D7 AE3BCC84 F10684C7 4BC8E00F 539BA42B 42C68BB7 
+  C7479096 B4CB2D62 EA2F505D C7B062A4 6811D95B E8250FC4 5D5D5FB8 8F27D191 
+  C55F0D76 61F9A4CD 3D992327 A8BB03BD 4E6D7069 7CBADF8B DF5F4368 95135E44 
+  DFC7C6CF 04DD7FD1 02030100 01A34230 40300E06 03551D0F 0101FF04 04030201 
+  06300F06 03551D13 0101FF04 05300301 01FF301D 0603551D 0E041604 1449DC85 
+  4B3D31E5 1B3E6A17 606AF333 3D3B4C73 E8300D06 092A8648 86F70D01 010B0500 
+  03820101 00507F24 D3932A66 86025D9F E838AE5C 6D4DF6B0 49631C78 240DA905 
+  604EDCDE FF4FED2B 77FC460E CD636FDB DD44681E 3A5673AB 9093D3B1 6C9E3D8B 
+  D98987BF E40CBD9E 1AECA0C2 2189BB5C 8FA85686 CD98B646 5575B146 8DFC66A8 
+  467A3DF4 4D565700 6ADF0F0D CF835015 3C04FF7C 21E878AC 11BA9CD2 55A9232C 
+  7CA7B7E6 C1AF74F6 152E99B7 B1FCF9BB E973DE7F 5BDDEB86 C71E3B49 1765308B 
+  5FB0DA06 B92AFE7F 494E8A9E 07B85737 F3A58BE1 1A48A229 C37C1E69 39F08678 
+  80DDCD16 D6BACECA EEBC7CF9 8428787B 35202CDC 60E4616A B623CDBD 230E3AFB 
+  418616A9 4093E049 4D10AB75 27E86F73 932E35B5 8862FDAE 0275156F 719BB2F0 
+  D697DF7F 28
+  	quit
+!
+!
+license udi pid C8500-12X4QC sn TTM25270305
+license accept end user agreement
+license boot level network-advantage
+memory free low-watermark processor 682859
+hw-module subslot 0/1 mode 10G
+hw-module subslot 0/2 mode 40G
+!
+!
+!
+!
+!
+object-group service Rule00007 
+ ip
+!
+object-group service Rule00008 
+ ip
+!
+object-group service Rule00009 
+ ip
+!
+object-group service Rule00010 
+ ip
+!
+object-group service Rule00011 
+ ip
+!
+object-group service Rule00012 
+ ip
+!
+object-group service Rule00013 
+ ip
+!
+object-group service Rule00014 
+ ip
+!
+object-group service Rule00015 
+ ip
+!
+object-group service Rule00026 
+ ip
+!
+object-group service Rule00027 
+ ip
+!
+object-group service Rule00028 
+ ip
+!
+object-group service Rule00029 
+ ip
+!
+object-group service Rule00030 
+ ip
+!
+object-group service Rule00031 
+ ip
+!
+object-group service Rule00032 
+ ip
+!
+object-group service Rule00033 
+ ip
+!
+object-group service Rule00034 
+ ip
+!
+object-group service Rule00045 
+ ip
+!
+object-group service Rule00046 
+ ip
+!
+object-group service Rule00047 
+ ip
+!
+object-group service Rule00048 
+ ip
+!
+object-group service Rule00049 
+ ip
+!
+object-group service Rule00050 
+ ip
+!
+object-group service Rule00051 
+ ip
+!
+object-group service Rule00052 
+ ip
+!
+object-group service Rule00053 
+ ip
+!
+object-group service Rule00064 
+ ip
+!
+object-group service Rule00065 
+ ip
+!
+object-group service Rule00066 
+ ip
+!
+object-group service Rule00067 
+ ip
+!
+object-group service Rule00068 
+ ip
+!
+object-group service Rule00069 
+ ip
+!
+object-group service Rule00070 
+ ip
+!
+object-group service Rule00080 
+ ip
+!
+object-group service Rule00081 
+ ip
+!
+object-group service Rule00082 
+ ip
+!
+object-group service Rule00083 
+ ip
+!
+object-group service Rule00084 
+ ip
+!
+object-group service Rule00085 
+ ip
+!
+object-group service Rule00086 
+ ip
+!
+object-group service Rule00087 
+ ip
+!
+object-group service Rule00088 
+ ip
+!
+object-group service Rule00089 
+ ip
+!
+object-group service Rule00100 
+ ip
+!
+object-group service Rule00101 
+ ip
+!
+object-group service Rule00102 
+ ip
+!
+object-group service Rule00103 
+ ip
+!
+object-group service Rule00104 
+ ip
+!
+object-group service Rule00105 
+ ip
+!
+object-group service Rule00106 
+ ip
+!
+object-group service Rule00107 
+ ip
+!
+object-group service Rule00108 
+ ip
+!
+object-group service Rule00121 
+ ip
+!
+object-group service Rule00122 
+ ip
+!
+object-group service Rule00123 
+ ip
+!
+object-group service Rule00124 
+ ip
+!
+object-group service Rule00125 
+ ip
+!
+object-group service Rule00126 
+ ip
+!
+object-group service Rule00127 
+ ip
+!
+object-group service Rule00140 
+ ip
+!
+object-group service Rule00141 
+ ip
+!
+object-group service Rule00142 
+ ip
+!
+object-group service Rule00143 
+ ip
+!
+object-group service Rule00144 
+ ip
+!
+object-group service Rule00145 
+ ip
+!
+object-group service Rule00146 
+ ip
+!
+object-group service Rule00159 
+ ip
+!
+object-group service Rule00160 
+ ip
+!
+object-group service Rule00161 
+ ip
+!
+object-group service Rule00162 
+ ip
+!
+object-group service Rule00163 
+ ip
+!
+object-group service Rule00164 
+ ip
+!
+object-group service Rule00178 
+ ip
+!
+object-group service Rule00179 
+ ip
+!
+object-group service Rule00180 
+ ip
+!
+object-group service Rule00181 
+ ip
+!
+object-group service Rule00182 
+ ip
+!
+object-group service Rule00183 
+ ip
+!
+object-group service Rule00184 
+ ip
+!
+object-group service Rule00197 
+ ip
+!
+object-group service Rule00198 
+ ip
+!
+object-group service Rule00199 
+ ip
+!
+object-group service Rule00200 
+ ip
+!
+object-group service Rule00201 
+ ip
+!
+object-group service Rule00202 
+ ip
+!
+object-group service Rule00203 
+ ip
+!
+object-group service Rule00216 
+ ip
+!
+object-group service Rule00217 
+ ip
+!
+object-group service Rule00218 
+ ip
+!
+object-group service Rule00219 
+ ip
+!
+object-group service Rule00220 
+ ip
+!
+object-group service Rule00221 
+ ip
+!
+object-group service Rule00222 
+ ip
+!
+object-group service Rule00235 
+ ip
+!
+object-group service Rule00236 
+ ip
+!
+object-group service Rule00237 
+ ip
+!
+object-group service Rule00238 
+ ip
+!
+object-group service Rule00239 
+ ip
+!
+object-group service Rule00240 
+ ip
+!
+object-group service Rule00241 
+ ip
+!
+object-group service Rule00254 
+ ip
+!
+object-group service Rule00255 
+ ip
+!
+object-group service Rule00256 
+ ip
+!
+object-group service Rule00257 
+ ip
+!
+object-group service Rule00258 
+ ip
+!
+object-group service Rule00259 
+ ip
+!
+object-group service Rule00260 
+ ip
+!
+object-group service Rule00273 
+ ip
+!
+object-group service Rule00274 
+ ip
+!
+object-group service Rule00275 
+ ip
+!
+object-group service Rule00276 
+ ip
+!
+object-group service Rule00277 
+ ip
+!
+object-group service Rule00278 
+ ip
+!
+object-group service Rule00292 
+ ip
+!
+object-group service Rule00293 
+ ip
+!
+object-group service Rule00294 
+ ip
+!
+object-group service Rule00295 
+ ip
+!
+object-group service Rule00296 
+ ip
+!
+object-group service Rule00297 
+ ip
+!
+object-group service Rule00311 
+ ip
+!
+object-group service Rule00312 
+ ip
+!
+object-group service Rule00313 
+ ip
+!
+object-group service Rule00314 
+ ip
+!
+object-group service Rule00315 
+ ip
+!
+object-group service Rule00316 
+ ip
+!
+object-group service Rule00330 
+ ip
+!
+object-group service Rule00331 
+ ip
+!
+object-group service Rule00332 
+ ip
+!
+object-group service Rule00333 
+ ip
+!
+object-group service Rule00334 
+ ip
+!
+object-group service Rule00335 
+ ip
+!
+object-group service Rule00351 
+ ip
+!
+object-group service Rule00352 
+ ip
+!
+object-group service Rule00353 
+ ip
+!
+object-group service Rule00354 
+ ip
+!
+object-group service Rule00355 
+ ip
+!
+object-group service Rule00370 
+ ip
+!
+object-group service Rule00371 
+ ip
+!
+object-group service Rule00372 
+ ip
+!
+object-group service Rule00373 
+ ip
+!
+object-group service Rule00389 
+ ip
+!
+object-group service Rule00390 
+ ip
+!
+object-group service Rule00391 
+ ip
+!
+object-group service Rule00392 
+ ip
+!
+object-group service Rule00408 
+ ip
+!
+object-group service Rule00409 
+ ip
+!
+object-group service Rule00410 
+ ip
+!
+object-group service Rule00411 
+ ip
+!
+object-group service Rule00427 
+ ip
+!
+object-group service Rule00428 
+ ip
+!
+object-group service Rule00429 
+ ip
+!
+object-group service Rule00430 
+ ip
+!
+object-group service Rule00446 
+ ip
+!
+object-group service Rule00447 
+ ip
+!
+object-group service Rule00448 
+ ip
+!
+object-group service Rule00449 
+ ip
+!
+object-group service Rule00450 
+ ip
+!
+object-group service Rule00465 
+ ip
+!
+object-group service Rule00466 
+ ip
+!
+object-group service Rule00467 
+ ip
+!
+object-group service Rule00468 
+ ip
+!
+object-group service Rule00484 
+ ip
+!
+object-group service Rule00485 
+ ip
+!
+object-group service Rule00486 
+ ip
+!
+object-group service Rule00487 
+ ip
+!
+object-group service Rule00503 
+ ip
+!
+object-group service Rule00504 
+ ip
+!
+object-group service Rule00505 
+ ip
+!
+object-group service Rule00506 
+ ip
+!
+object-group service Rule00522 
+ ip
+!
+object-group service Rule00523 
+ ip
+!
+object-group service Rule00524 
+ ip
+!
+object-group service Rule00525 
+ ip
+!
+object-group service Rule00541 
+ ip
+!
+object-group service Rule00542 
+ ip
+!
+object-group service Rule00543 
+ ip
+!
+object-group service Rule00544 
+ ip
+!
+object-group service Rule00545 
+ ip
+!
+object-group service Rule00560 
+ ip
+!
+object-group service Rule00561 
+ ip
+!
+object-group service Rule00562 
+ ip
+!
+object-group service Rule00563 
+ ip
+!
+object-group service Rule00579 
+ ip
+!
+object-group service Rule00580 
+ ip
+!
+object-group service Rule00581 
+ ip
+!
+object-group service Rule00582 
+ ip
+!
+object-group service Rule00583 
+ ip
+!
+object-group service Rule00598 
+ ip
+!
+object-group service Rule00599 
+ ip
+!
+object-group service Rule00600 
+ ip
+!
+object-group service Rule00601 
+ ip
+!
+object-group service Rule00617 
+ ip
+!
+object-group service Rule00618 
+ ip
+!
+object-group service Rule00619 
+ ip
+!
+object-group service Rule00620 
+ ip
+!
+object-group service Rule00621 
+ ip
+!
+object-group service Rule00636 
+ ip
+!
+object-group service Rule00637 
+ ip
+!
+object-group service Rule00638 
+ ip
+!
+object-group service Rule00639 
+ ip
+!
+object-group service Rule00640 
+ ip
+!
+object-group service Rule00655 
+ ip
+!
+object-group service Rule00656 
+ ip
+!
+object-group service Rule00657 
+ ip
+!
+object-group service Rule00658 
+ ip
+!
+object-group service Rule00659 
+ ip
+!
+object-group service Rule00674 
+ ip
+!
+object-group service Rule00675 
+ ip
+!
+object-group service Rule00676 
+ ip
+!
+object-group service Rule00677 
+ ip
+!
+object-group service Rule00678 
+ ip
+!
+object-group service Rule00693 
+ ip
+!
+object-group service Rule00694 
+ ip
+!
+object-group service Rule00695 
+ ip
+!
+object-group service Rule00696 
+ ip
+!
+object-group service Rule00697 
+ ip
+!
+object-group service Rule00712 
+ ip
+!
+object-group service Rule00713 
+ ip
+!
+object-group service Rule00714 
+ ip
+!
+object-group service Rule00715 
+ ip
+!
+object-group service Rule00731 
+ ip
+!
+object-group service Rule00732 
+ ip
+!
+object-group service Rule00733 
+ ip
+!
+object-group service Rule00734 
+ ip
+!
+object-group service Rule00735 
+ ip
+!
+object-group service Rule00750 
+ ip
+!
+object-group service Rule00751 
+ ip
+!
+object-group service Rule00752 
+ ip
+!
+object-group service Rule00753 
+ ip
+!
+object-group service Rule00769 
+ ip
+!
+object-group service Rule00770 
+ ip
+!
+object-group service Rule00771 
+ ip
+!
+object-group service Rule00772 
+ ip
+!
+object-group service Rule00773 
+ ip
+!
+object-group service Rule00788 
+ ip
+!
+object-group service Rule00789 
+ ip
+!
+object-group service Rule00790 
+ ip
+!
+object-group service Rule00791 
+ ip
+!
+object-group service Rule00807 
+ ip
+!
+object-group service Rule00808 
+ ip
+!
+object-group service Rule00809 
+ ip
+!
+object-group service Rule00810 
+ ip
+!
+object-group service Rule00826 
+ ip
+!
+object-group service Rule00827 
+ ip
+!
+object-group service Rule00828 
+ ip
+!
+object-group service Rule00845 
+ ip
+!
+object-group service Rule00846 
+ ip
+!
+object-group service Rule00847 
+ ip
+!
+object-group service Rule00848 
+ ip
+!
+object-group service Rule00864 
+ ip
+!
+object-group service Rule00865 
+ ip
+!
+object-group service Rule00866 
+ ip
+!
+object-group service Rule00867 
+ ip
+!
+object-group service Rule00883 
+ ip
+!
+object-group service Rule00884 
+ ip
+!
+object-group service Rule00885 
+ ip
+!
+object-group service Rule00902 
+ ip
+!
+object-group service Rule00903 
+ ip
+!
+object-group service Rule00904 
+ ip
+!
+object-group service Rule00905 
+ ip
+!
+object-group service Rule00921 
+ ip
+!
+object-group service Rule00922 
+ ip
+!
+object-group service Rule00923 
+ ip
+!
+object-group service Rule00924 
+ ip
+!
+object-group service Rule00940 
+ ip
+!
+object-group service Rule00941 
+ ip
+!
+object-group service Rule00942 
+ ip
+!
+object-group service Rule00943 
+ ip
+!
+object-group service Rule00959 
+ ip
+!
+object-group service Rule00960 
+ ip
+!
+object-group service Rule00961 
+ ip
+!
+object-group service Rule00962 
+ ip
+!
+object-group service Rule00978 
+ ip
+!
+object-group service Rule00979 
+ ip
+!
+object-group service Rule00980 
+ ip
+!
+object-group service Rule00981 
+ ip
+!
+object-group network dstip001 
+ host 10.2.0.1
+!
+object-group network dstip002 
+ host 10.2.0.2
+!
+object-group network dstip003 
+ host 10.2.0.3
+!
+object-group network dstip004 
+ host 10.2.0.4
+!
+object-group network dstip005 
+ host 10.2.0.5
+!
+object-group network dstip006 
+ host 10.2.0.6
+!
+object-group network dstip007 
+ host 10.2.0.7
+!
+object-group network dstip008 
+ host 10.2.0.8
+!
+object-group network dstip009 
+ host 10.2.0.9
+!
+object-group network dstip010 
+ host 10.2.0.10
+!
+object-group network dstip011 
+ host 10.2.0.11
+!
+object-group network dstip012 
+ host 10.2.0.12
+!
+object-group network dstip013 
+ host 10.2.0.13
+!
+object-group network dstip014 
+ host 10.2.0.14
+!
+object-group network dstip015 
+ host 10.2.0.15
+!
+object-group network dstip016 
+ host 10.2.0.16
+!
+object-group network dstip017 
+ host 10.2.0.17
+!
+object-group network dstip018 
+ host 10.2.0.18
+!
+object-group network dstip019 
+ host 10.2.0.19
+!
+object-group network dstip020 
+ host 10.2.0.20
+!
+object-group network dstip021 
+ host 10.2.0.21
+!
+object-group network dstip022 
+ host 10.2.0.22
+!
+object-group network dstip023 
+ host 10.2.0.23
+!
+object-group network dstip024 
+ host 10.2.0.24
+!
+object-group network dstip025 
+ host 10.2.0.25
+!
+object-group network dstip026 
+ host 10.2.0.26
+!
+object-group network dstip027 
+ host 10.2.0.27
+!
+object-group network dstip028 
+ host 10.2.0.28
+!
+object-group network dstip029 
+ host 10.2.0.29
+!
+object-group network dstip030 
+ host 10.2.0.30
+!
+object-group network dstip031 
+ host 10.2.0.31
+!
+object-group network dstip032 
+ host 10.2.0.32
+!
+object-group network dstip033 
+ host 10.2.0.33
+!
+object-group network dstip034 
+ host 10.2.0.34
+!
+object-group network dstip035 
+ host 10.2.0.35
+!
+object-group network dstip036 
+ host 10.2.0.36
+!
+object-group network dstip037 
+ host 10.2.0.37
+!
+object-group network dstip038 
+ host 10.2.0.38
+!
+object-group network dstip039 
+ host 10.2.0.39
+!
+object-group network dstip040 
+ host 10.2.0.40
+!
+object-group network dstip041 
+ host 10.2.0.41
+!
+object-group network dstip042 
+ host 10.2.0.42
+!
+object-group network dstip043 
+ host 10.2.0.43
+!
+object-group network dstip044 
+ host 10.2.0.44
+!
+object-group network dstip045 
+ host 10.2.0.45
+!
+object-group network dstip046 
+ host 10.2.0.46
+!
+object-group network dstip047 
+ host 10.2.0.47
+!
+object-group network dstip048 
+ host 10.2.0.48
+!
+object-group network dstip049 
+ host 10.2.0.49
+!
+object-group network dstip050 
+ host 10.2.0.50
+!
+object-group network dstip051 
+ host 10.2.0.51
+!
+object-group network dstip052 
+ host 10.2.0.52
+!
+object-group network dstip053 
+ host 10.2.0.53
+!
+object-group network dstip054 
+ host 10.2.0.54
+!
+object-group network dstip055 
+ host 10.2.0.55
+!
+object-group network dstip056 
+ host 10.2.0.56
+!
+object-group network dstip057 
+ host 10.2.0.57
+!
+object-group network dstip058 
+ host 10.2.0.58
+!
+object-group network dstip059 
+ host 10.2.0.59
+!
+object-group network dstip060 
+ host 10.2.0.60
+!
+object-group network dstip061 
+ host 10.2.0.61
+!
+object-group network dstip062 
+ host 10.2.0.62
+!
+object-group network dstip063 
+ host 10.2.0.63
+!
+object-group network dstip064 
+ host 10.2.0.64
+!
+object-group network dstip065 
+ host 10.2.0.65
+!
+object-group network dstip066 
+ host 10.2.0.66
+!
+object-group network dstip067 
+ host 10.2.0.67
+!
+object-group network dstip068 
+ host 10.2.0.68
+!
+object-group network dstip069 
+ host 10.2.0.69
+!
+object-group network dstip070 
+ host 10.2.0.70
+!
+object-group network dstip071 
+ host 10.2.0.71
+!
+object-group network dstip072 
+ host 10.2.0.72
+!
+object-group network dstip073 
+ host 10.2.0.73
+!
+object-group network dstip074 
+ host 10.2.0.74
+!
+object-group network dstip075 
+ host 10.2.0.75
+!
+object-group network dstip076 
+ host 10.2.0.76
+!
+object-group network dstip077 
+ host 10.2.0.77
+!
+object-group network dstip078 
+ host 10.2.0.78
+!
+object-group network dstip079 
+ host 10.2.0.79
+!
+object-group network dstip080 
+ host 10.2.0.80
+!
+object-group network dstip081 
+ host 10.2.0.81
+!
+object-group network dstip082 
+ host 10.2.0.82
+!
+object-group network dstip083 
+ host 10.2.0.83
+!
+object-group network dstip084 
+ host 10.2.0.84
+!
+object-group network dstip085 
+ host 10.2.0.85
+!
+object-group network dstip086 
+ host 10.2.0.86
+!
+object-group network dstip087 
+ host 10.2.0.87
+!
+object-group network dstip088 
+ host 10.2.0.88
+!
+object-group network dstip089 
+ host 10.2.0.89
+!
+object-group network dstip090 
+ host 10.2.0.90
+!
+object-group network dstip091 
+ host 10.2.0.91
+!
+object-group network dstip092 
+ host 10.2.0.92
+!
+object-group network dstip093 
+ host 10.2.0.93
+!
+object-group network dstip094 
+ host 10.2.0.94
+!
+object-group network dstip095 
+ host 10.2.0.95
+!
+object-group network dstip096 
+ host 10.2.0.96
+!
+object-group network dstip097 
+ host 10.2.0.97
+!
+object-group network dstip098 
+ host 10.2.0.98
+!
+object-group network dstip099 
+ host 10.2.0.99
+!
+object-group network dstip100 
+ host 10.2.0.100
+!
+object-group network dstip101 
+ host 10.2.0.101
+!
+object-group network dstip102 
+ host 10.2.0.102
+!
+object-group network dstip103 
+ host 10.2.0.103
+!
+object-group network dstip104 
+ host 10.2.0.104
+!
+object-group network dstip105 
+ host 10.2.0.105
+!
+object-group network dstip106 
+ host 10.2.0.106
+!
+object-group network dstip107 
+ host 10.2.0.107
+!
+object-group network dstip108 
+ host 10.2.0.108
+!
+object-group network dstip109 
+ host 10.2.0.109
+!
+object-group network dstip110 
+ host 10.2.0.110
+!
+object-group network dstip111 
+ host 10.2.0.111
+!
+object-group network dstip112 
+ host 10.2.0.112
+!
+object-group network dstip113 
+ host 10.2.0.113
+!
+object-group network dstip114 
+ host 10.2.0.114
+!
+object-group network dstip115 
+ host 10.2.0.115
+!
+object-group network dstip116 
+ host 10.2.0.116
+!
+object-group network dstip117 
+ host 10.2.0.117
+!
+object-group network dstip118 
+ host 10.2.0.118
+!
+object-group network dstip119 
+ host 10.2.0.119
+!
+object-group network dstip120 
+ host 10.2.0.120
+!
+object-group network dstip121 
+ host 10.2.0.121
+!
+object-group network dstip122 
+ host 10.2.0.122
+!
+object-group network dstip123 
+ host 10.2.0.123
+!
+object-group network dstip124 
+ host 10.2.0.124
+!
+object-group network dstip125 
+ host 10.2.0.125
+!
+object-group network dstip126 
+ host 10.2.0.126
+!
+object-group network dstip127 
+ host 10.2.0.127
+!
+object-group network dstip128 
+ host 10.2.0.128
+!
+object-group network dstip129 
+ host 10.2.0.129
+!
+object-group network dstip130 
+ host 10.2.0.130
+!
+object-group network dstip131 
+ host 10.2.0.131
+!
+object-group network dstip132 
+ host 10.2.0.132
+!
+object-group network dstip133 
+ host 10.2.0.133
+!
+object-group network dstip134 
+ host 10.2.0.134
+!
+object-group network dstip135 
+ host 10.2.0.135
+!
+object-group network dstip136 
+ host 10.2.0.136
+!
+object-group network dstip137 
+ host 10.2.0.137
+!
+object-group network dstip138 
+ host 10.2.0.138
+!
+object-group network dstip139 
+ host 10.2.0.139
+!
+object-group network dstip140 
+ host 10.2.0.140
+!
+object-group network dstip141 
+ host 10.2.0.141
+!
+object-group network dstip142 
+ host 10.2.0.142
+!
+object-group network dstip143 
+ host 10.2.0.143
+!
+object-group network dstip144 
+ host 10.2.0.144
+!
+object-group network dstip145 
+ host 10.2.0.145
+!
+object-group network dstip146 
+ host 10.2.0.146
+!
+object-group network dstip147 
+ host 10.2.0.147
+!
+object-group network dstip148 
+ host 10.2.0.148
+!
+object-group network dstip149 
+ host 10.2.0.149
+!
+object-group network dstip150 
+ host 10.2.0.150
+!
+object-group network dstip151 
+ host 10.2.0.151
+!
+object-group network dstip152 
+ host 10.2.0.152
+!
+object-group network dstip153 
+ host 10.2.0.153
+!
+object-group network dstip154 
+ host 10.2.0.154
+!
+object-group network dstip155 
+ host 10.2.0.155
+!
+object-group network dstip156 
+ host 10.2.0.156
+!
+object-group network dstip157 
+ host 10.2.0.157
+!
+object-group network dstip158 
+ host 10.2.0.158
+!
+object-group network dstip159 
+ host 10.2.0.159
+!
+object-group network dstip160 
+ host 10.2.0.160
+!
+object-group network dstip161 
+ host 10.2.0.161
+!
+object-group network dstip162 
+ host 10.2.0.162
+ host 10.2.0.171
+!
+object-group network dstip163 
+ host 10.2.0.163
+!
+object-group network dstip164 
+ host 10.2.0.164
+!
+object-group network dstip165 
+ host 10.2.0.165
+!
+object-group network dstip172 
+ host 10.2.0.172
+!
+object-group network dstip173 
+ host 10.2.0.173
+!
+object-group network dstip174 
+ host 10.2.0.174
+!
+object-group network dstip175 
+ host 10.2.0.175
+!
+object-group network dstip176 
+ host 10.2.0.176
+!
+object-group network dstip177 
+ host 10.2.0.177
+!
+object-group network dstip178 
+ host 10.2.0.178
+!
+object-group network dstip179 
+ host 10.2.0.179
+!
+object-group network dstip180 
+ host 10.2.0.180
+!
+object-group network dstip181 
+ host 10.2.0.181
+!
+object-group network dstip182 
+ host 10.2.0.182
+!
+object-group network dstip183 
+ host 10.2.0.183
+!
+object-group network dstip184 
+ host 10.2.0.184
+!
+object-group network dstip185 
+ host 10.2.0.185
+!
+object-group network dstip186 
+ host 10.2.0.186
+!
+object-group network dstip187 
+ host 10.2.0.187
+!
+object-group network dstip188 
+ host 10.2.0.188
+!
+object-group network dstip189 
+ host 10.2.0.189
+!
+object-group network dstip190 
+ host 10.2.0.190
+!
+object-group network dstip191 
+ host 10.2.0.191
+!
+object-group network dstip192 
+ host 10.2.0.192
+!
+object-group network dstip193 
+ host 10.2.0.193
+!
+object-group network dstip194 
+ host 10.2.0.194
+!
+object-group network dstip195 
+ host 10.2.0.195
+!
+object-group network dstip196 
+ host 10.2.0.196
+!
+object-group network dstip197 
+ host 10.2.0.197
+!
+object-group network dstip198 
+ host 10.2.0.198
+!
+object-group network dstip199 
+ host 10.2.0.199
+ host 10.2.1.7
+!
+object-group network dstip200 
+ host 10.2.0.200
+!
+object-group network dstip201 
+ host 10.2.0.201
+!
+object-group network dstip264 
+ host 10.2.1.8
+!
+object-group network dstip265 
+ host 10.2.1.9
+!
+object-group network dstip266 
+ host 10.2.1.10
+!
+object-group network dstip267 
+ host 10.2.1.11
+!
+object-group network dstip268 
+ host 10.2.1.12
+!
+object-group network dstip269 
+ host 10.2.1.13
+!
+object-group network dstip270 
+ host 10.2.1.14
+!
+object-group network dstip271 
+ host 10.2.1.15
+!
+object-group network dstip272 
+ host 10.2.1.16
+!
+object-group network dstip273 
+ host 10.2.1.17
+!
+object-group network dstip274 
+ host 10.2.1.18
+!
+object-group network dstip275 
+ host 10.2.1.19
+!
+object-group network dstip276 
+ host 10.2.1.20
+!
+object-group network dstip277 
+ host 10.2.1.21
+!
+object-group network dstip278 
+ host 10.2.1.22
+!
+object-group network dstip279 
+ host 10.2.1.23
+!
+object-group network dstip280 
+ host 10.2.1.24
+!
+object-group network dstip281 
+ host 10.2.1.25
+!
+object-group network dstip282 
+ host 10.2.1.26
+!
+object-group network dstip283 
+ host 10.2.1.27
+!
+object-group network dstip284 
+ host 10.2.1.28
+!
+object-group network dstip285 
+ host 10.2.1.29
+!
+object-group network dstip286 
+ host 10.2.1.30
+!
+object-group network dstip287 
+ host 10.2.1.31
+!
+object-group network dstip288 
+ host 10.2.1.32
+!
+object-group network dstip289 
+ host 10.2.1.33
+!
+object-group network dstip290 
+ host 10.2.1.34
+!
+object-group network dstip291 
+ host 10.2.1.35
+!
+object-group network dstip292 
+ host 10.2.1.36
+ host 10.2.1.101
+!
+object-group network dstip293 
+ host 10.2.1.37
+!
+object-group network dstip294 
+ host 10.2.1.38
+!
+object-group network dstip358 
+ host 10.2.1.102
+!
+object-group network dstip359 
+ host 10.2.1.103
+!
+object-group network dstip360 
+ host 10.2.1.104
+!
+object-group network dstip361 
+ host 10.2.1.105
+!
+object-group network dstip362 
+ host 10.2.1.106
+!
+object-group network dstip363 
+ host 10.2.1.107
+!
+object-group network dstip364 
+ host 10.2.1.108
+!
+object-group network dstip365 
+ host 10.2.1.109
+!
+object-group network dstip366 
+ host 10.2.1.110
+!
+object-group network dstip367 
+ host 10.2.1.111
+!
+object-group network dstip368 
+ host 10.2.1.112
+!
+object-group network dstip369 
+ host 10.2.1.113
+!
+object-group network dstip370 
+ host 10.2.1.114
+!
+object-group network dstip371 
+ host 10.2.1.115
+!
+object-group network dstip372 
+ host 10.2.1.116
+!
+object-group network dstip373 
+ host 10.2.1.117
+!
+object-group network dstip374 
+ host 10.2.1.118
+!
+object-group network dstip375 
+ host 10.2.1.119
+!
+object-group network dstip376 
+ host 10.2.1.120
+!
+object-group network dstip377 
+ host 10.2.1.121
+!
+object-group network dstip378 
+ host 10.2.1.122
+!
+object-group network dstip379 
+ host 10.2.1.123
+!
+object-group network dstip380 
+ host 10.2.1.124
+!
+object-group network dstip381 
+ host 10.2.1.125
+!
+object-group network dstip382 
+ host 10.2.1.126
+!
+object-group network dstip383 
+ host 10.2.1.127
+!
+object-group network dstip384 
+ host 10.2.1.128
+ host 10.2.1.193
+!
+object-group network dstip385 
+ host 10.2.1.129
+!
+object-group network dstip386 
+ host 10.2.1.130
+!
+object-group network dstip387 
+ host 10.2.1.131
+!
+object-group network dstip449 
+ host 10.2.1.193
+!
+object-group network dstip450 
+ host 10.2.1.194
+!
+object-group network dstip451 
+ host 10.2.1.195
+!
+object-group network dstip452 
+ host 10.2.1.196
+!
+object-group network dstip453 
+ host 10.2.1.197
+!
+object-group network dstip454 
+ host 10.2.1.198
+!
+object-group network dstip455 
+ host 10.2.1.199
+!
+object-group network dstip456 
+ host 10.2.1.200
+!
+object-group network dstip457 
+ host 10.2.1.201
+!
+object-group network dstip458 
+ host 10.2.1.202
+!
+object-group network dstip459 
+ host 10.2.1.203
+!
+object-group network dstip460 
+ host 10.2.1.204
+!
+object-group network dstip461 
+ host 10.2.1.205
+!
+object-group network dstip462 
+ host 10.2.1.206
+!
+object-group network dstip463 
+ host 10.2.1.207
+!
+object-group network dstip464 
+ host 10.2.1.208
+!
+object-group network dstip465 
+ host 10.2.1.209
+!
+object-group network dstip466 
+ host 10.2.1.210
+!
+object-group network dstip467 
+ host 10.2.1.211
+!
+object-group network dstip468 
+ host 10.2.1.212
+!
+object-group network dstip469 
+ host 10.2.1.213
+!
+object-group network dstip470 
+ host 10.2.1.214
+!
+object-group network dstip471 
+ host 10.2.1.215
+!
+object-group network dstip472 
+ host 10.2.1.216
+!
+object-group network dstip473 
+ host 10.2.1.217
+!
+object-group network dstip474 
+ host 10.2.1.218
+!
+object-group network dstip475 
+ host 10.2.1.219
+!
+object-group network dstip476 
+ host 10.2.1.220
+!
+object-group network dstip477 
+ host 10.2.1.221
+!
+object-group network dstip478 
+ host 10.2.1.222
+!
+object-group network srcip001 
+ host 10.0.2.1
+!
+object-group network srcip002 
+ host 10.0.2.2
+!
+object-group network srcip003 
+ host 10.0.2.3
+!
+object-group network srcip004 
+ host 10.0.2.4
+!
+!
+spanning-tree extend system-id
+diagnostic bootup level minimal
+!
+!
+redundancy
+ mode none
+!
+!
+crypto ikev2 proposal sig-test 
+ encryption aes-cbc-256
+ integrity sha256
+ group 14
+!
+crypto ikev2 policy ike-policy-test 
+ match fvrf USER
+ proposal sig-test
+!
+!
+crypto ikev2 profile ikev2-profile
+ match fvrf USER
+ match identity remote address 198.4.101.1 255.255.255.255 
+ authentication remote pre-share key PrismaFJ789#
+ authentication local pre-share key PrismaFJ789#
+ no lifetime certificate
+!
+!
+!
+cdp run
+!
+!
+class-map type inspect match-all seq00052
+ match access-group name acl00052
+class-map type inspect match-all seq00007
+ match access-group name acl00007
+class-map type inspect match-all seq00025
+ match access-group name acl00025
+class-map type inspect match-all seq00142
+ match access-group name acl00142
+class-map type inspect match-all seq00160
+ match access-group name acl00160
+class-map type inspect match-all seq00236
+ match access-group name acl00236
+class-map type inspect match-all seq00272
+ match access-group name acl00272
+class-map type inspect match-all seq00106
+ match access-group name acl00106
+class-map type inspect match-all seq00124
+ match access-group name acl00124
+class-map type inspect match-all seq00315
+ match access-group name acl00315
+class-map type inspect match-all seq00351
+ match access-group name acl00351
+class-map type inspect match-all seq00373
+ match access-group name acl00388
+class-map type inspect match-all seq00447
+ match access-group name acl00447
+class-map type inspect match-all seq00465
+ match access-group name acl00465
+class-map type inspect match-all seq00502
+ match access-group name acl00502
+class-map type inspect match-all seq00601
+ match access-group name acl00601
+class-map type inspect match-all seq00654
+ match access-group name acl00654
+class-map type inspect match-all seq00676
+ match access-group name acl00676
+class-map type inspect match-all seq00711
+ match access-group name acl00711
+class-map type inspect match-all seq00733
+ match access-group name acl00733
+class-map type inspect match-all seq00788
+ match access-group name acl00788
+class-map type inspect match-all seq00979
+ match access-group name acl00979
+class-map type inspect match-all seq00006
+ match access-group name acl00006
+class-map type inspect match-all seq00143
+ match access-group name acl00143
+class-map type inspect match-all seq00161
+ match access-group name acl00161
+class-map type inspect match-all seq00215
+ match access-group name acl00215
+class-map type inspect match-all seq00237
+ match access-group name acl00237
+class-map type inspect match-all seq00273
+ match access-group name acl00273
+class-map type inspect match-all seq00107
+ match access-group name acl00107
+class-map type inspect match-all seq00125
+ match access-group name acl00125
+class-map type inspect match-all seq00240
+ match access-group name acl00240
+class-map type inspect match-all seq00314
+ match access-group name acl00314
+class-map type inspect match-all seq00372
+ match access-group name acl00372
+class-map type inspect match-all seq00446
+ match access-group name acl00446
+class-map type inspect match-all seq00464
+ match access-group name acl00464
+class-map type inspect match-all seq00503
+ match access-group name acl00503
+class-map type inspect match-all seq00521
+ match access-group name acl00521
+class-map type inspect match-all seq00600
+ match access-group name acl00600
+class-map type inspect match-all seq00655
+ match access-group name acl00655
+class-map type inspect match-all seq00677
+ match access-group name acl00677
+class-map type inspect match-all seq00732
+ match access-group name acl00732
+class-map type inspect match-all seq00789
+ match access-group name acl00789
+class-map type inspect match-all seq00978
+ match access-group name acl00978
+class-map type inspect match-all seq00014
+ match access-group name acl00014
+class-map type inspect match-all seq00050
+ match access-group name acl00050
+class-map type inspect match-all seq00027
+ match access-group name acl00027
+class-map type inspect match-all seq00063
+ match access-group name acl00063
+class-map type inspect match-all seq00104
+ match access-group name acl00104
+class-map type inspect match-all seq00140
+ match access-group name acl00140
+class-map type inspect match-all seq00162
+ match access-group name acl00162
+class-map type inspect match-all seq00216
+ match access-group name acl00216
+class-map type inspect match-all seq00234
+ match access-group name acl00234
+class-map type inspect match-all seq00126
+ match access-group name acl00126
+class-map type inspect match-all seq00353
+ match access-group name acl00353
+class-map type inspect match-all seq00371
+ match access-group name acl00371
+class-map type inspect match-all seq00410
+ match access-group name acl00410
+class-map type inspect match-all seq00445
+ match access-group name acl00445
+class-map type inspect match-all seq00467
+ match access-group name acl00467
+class-map type inspect match-all seq00522
+ match access-group name acl00522
+class-map type inspect match-all seq00544
+ match access-group name acl00544
+class-map type inspect match-all seq00599
+ match access-group name acl00599
+class-map type inspect match-all seq00656
+ match access-group name acl00656
+class-map type inspect match-all seq00674
+ match access-group name acl00674
+class-map type inspect match-all seq00713
+ match access-group name acl00713
+class-map type inspect match-all seq00731
+ match access-group name acl00731
+class-map type inspect match-all seq00885
+ match access-group name acl00885
+class-map type inspect match-all seq00959
+ match access-group name acl00959
+class-map type inspect match-all seq00051
+ match access-group name acl00051
+class-map type inspect match-all seq00026
+ match access-group name acl00026
+class-map type inspect match-all seq00105
+ match access-group name acl00105
+class-map type inspect match-all seq00141
+ match access-group name acl00141
+class-map type inspect match-all seq00217
+ match access-group name acl00217
+class-map type inspect match-all seq00235
+ match access-group name acl00235
+class-map type inspect match-all seq00253
+ match access-group name acl00253
+class-map type inspect match-all seq00163
+ match access-group name acl00163
+class-map type inspect match-all seq00316
+ match access-group name acl00316
+ match access-group name acl00331
+class-map type inspect match-all seq00334
+ match access-group name acl00334
+class-map type inspect match-all seq00352
+ match access-group name acl00352
+class-map type inspect match-all seq00370
+ match access-group name acl00370
+class-map type inspect match-all seq00466
+ match access-group name acl00466
+class-map type inspect match-all seq00523
+ match access-group name acl00523
+class-map type inspect match-all seq00598
+ match access-group name acl00598
+class-map type inspect match-all seq00620
+ match access-group name acl00620
+class-map type inspect match-all seq00657
+ match access-group name acl00657
+class-map type inspect match-all seq00675
+ match access-group name acl00675
+class-map type inspect match-all seq00712
+ match access-group name acl00712
+class-map type inspect match-all seq00730
+ match access-group name acl00730
+class-map type inspect match-all seq00848
+class-map type inspect match-all seq00884
+ match access-group name acl00884
+class-map type inspect match-all seq00958
+ match access-group name acl00958
+class-map type inspect match-all seq00012
+ match access-group name acl00012
+class-map type inspect match-all seq00030
+ match access-group name acl00030
+class-map type inspect match-all seq00047
+ match access-group name acl00047
+class-map type inspect match-all seq00102
+ match access-group name acl00102
+class-map type inspect match-all seq00065
+ match access-group name acl00065
+class-map type inspect match-all seq00120
+ match access-group name acl00120
+class-map type inspect match-all seq00254
+ match access-group name acl00254
+class-map type inspect match-all seq00276
+ match access-group name acl00276
+class-map type inspect match-all seq00311
+ match access-group name acl00311
+class-map type inspect match-all seq00164
+ match access-group name acl00164
+class-map type inspect match-all seq00201
+ match access-group name acl00201
+class-map type inspect match-all seq00333
+ match access-group name acl00333
+class-map type inspect match-all seq00407
+ match access-group name acl00407
+class-map type inspect match-all seq00524
+ match access-group name acl00524
+class-map type inspect match-all seq00542
+ match access-group name acl00542
+class-map type inspect match-all seq00560
+ match access-group name acl00560
+class-map type inspect match-all seq00636
+ match access-group name acl00636
+class-map type inspect match-all seq00751
+ match access-group name acl00751
+class-map type inspect match-all seq00883
+ match access-group name acl00883
+class-map type inspect match-all seq00939
+ match access-group name acl00939
+class-map type inspect match-all seq00013
+ match access-group name acl00013
+class-map type inspect match-all seq00031
+ match access-group name acl00031
+class-map type inspect match-all seq00103
+ match access-group name acl00103
+class-map type inspect match-all seq00046
+ match access-group name acl00046
+class-map type inspect match-all seq00064
+ match access-group name acl00064
+class-map type inspect match-all seq00121
+ match access-group name acl00121
+class-map type inspect match-all acl00139
+class-map type inspect match-all seq00200
+ match access-group name acl00200
+class-map type inspect match-all seq00255
+ match access-group name acl00255
+class-map type inspect match-all seq00310
+ match access-group name acl00310
+class-map type inspect match-all seq00332
+ match access-group name acl00332
+class-map type inspect match-all seq00277
+ match access-group name acl00277
+class-map type inspect match-all seq00354
+ match access-group name acl00354
+class-map type inspect match-all seq00389
+ match access-group name acl00389
+class-map type inspect match-all seq00543
+ match access-group name acl00543
+class-map type inspect match-all seq00561
+ match access-group name acl00561
+class-map type inspect match-all seq00637
+ match access-group name acl00637
+class-map type inspect match-all seq00673
+ match access-group name acl00673
+class-map type inspect match-all seq00714
+ match access-group name acl00714
+class-map type inspect match-all seq00750
+ match access-group name acl00750
+class-map type inspect match-all seq00772
+ match access-group name acl00772
+class-map type inspect match-all seq00828
+class-map type inspect match-all seq00882
+ match access-group name acl00882
+class-map type inspect match-all seq00010
+ match access-group name acl00010
+class-map type inspect match-all seq00032
+ match access-group name acl00032
+class-map type inspect match-all seq00100
+ match access-group name acl00100
+class-map type inspect match-all seq00045
+ match access-group name acl00045
+class-map type inspect match-all seq00067
+ match access-group name acl00067
+class-map type inspect match-all seq00122
+ match access-group name acl00122
+class-map type inspect match-all seq00177
+ match access-group name acl00177
+class-map type inspect match-all seq00199
+ match access-group name acl00199
+class-map type inspect match-all seq00256
+ match access-group name acl00256
+class-map type inspect match-all seq00274
+ match access-group name acl00274
+class-map type inspect match-all seq00313
+ match access-group name acl00313
+class-map type inspect match-all seq00331
+ match access-group name acl00331
+class-map type inspect match-all seq00144
+ match access-group name acl00144
+class-map type inspect match-all seq00221
+ match access-group name acl00221
+class-map type inspect match-all seq00427
+ match access-group name acl00427
+class-map type inspect match-all seq00504
+ match access-group name acl00504
+class-map type inspect match-all seq00540
+ match access-group name acl00540
+class-map type inspect match-all seq00562
+ match access-group name acl00562
+class-map type inspect match-all seq00616
+ match access-group name acl00616
+class-map type inspect match-all seq00771
+ match access-group name acl00771
+class-map type inspect match-all seq00809
+ match access-group name acl00809
+class-map type inspect match-all seq00980
+ match access-group name acl00980
+class-map type inspect match-all seq00011
+ match access-group name acl00011
+class-map type inspect match-all seq00033
+ match access-group name acl00033
+ match access-group name acl00
+class-map type inspect match-all seq00099
+ match access-group name acl00099
+class-map type inspect match-all seq00101
+ match access-group name acl00101
+class-map type inspect match-all seq00044
+ match access-group name acl00044
+class-map type inspect match-all seq00066
+ match access-group name acl00066
+class-map type inspect match-all seq00123
+ match access-group name acl00123
+class-map type inspect match-all seq00198
+ match access-group name acl00198
+class-map type inspect match-all seq00275
+ match access-group name acl00275
+class-map type inspect match-all seq00312
+ match access-group name acl00312
+class-map type inspect match-all seq00330
+ match access-group name acl00330
+class-map type inspect match-all seq00088
+ match access-group name acl00088
+class-map type inspect match-all seq00145
+ match access-group name acl00145
+class-map type inspect match-all seq00202
+ match access-group name acl00202
+class-map type inspect match-all seq00220
+ match access-group name acl00220
+class-map type inspect match-all seq00257
+ match access-group name acl00257
+class-map type inspect match-all seq00426
+ match access-group name acl00426
+class-map type inspect match-all seq00505
+ match access-group name acl00505
+class-map type inspect match-all seq00541
+ match access-group name acl00541
+class-map type inspect match-all seq00617
+ match access-group name acl00617
+class-map type inspect match-all seq00635
+ match access-group name acl00635
+class-map type inspect match-all seq00734
+ match access-group name acl00734
+class-map type inspect match-all seq00752
+ match access-group name acl00752
+class-map type inspect match-all seq00770
+ match access-group name acl00770
+class-map type inspect match-all seq00808
+ match access-group name acl00808
+class-map type inspect match-all seq00087
+ match access-group name acl00087
+class-map type inspect match-all seq00179
+ match access-group name acl00179
+class-map type inspect match-all seq00197
+ match access-group name acl00197
+class-map type inspect match-all seq00294
+ match access-group name acl00294
+class-map type inspect match-all seq00069
+ match access-group name acl00069
+class-map type inspect match-all seq00258
+ match access-group name acl00258
+class-map type inspect match-all seq00429
+ match access-group name acl00429
+class-map type inspect match-all seq00483
+ match access-group name acl00483
+class-map type inspect match-all seq00582
+ match access-group name acl00582
+class-map type inspect match-all seq00618
+ match access-group name acl00618
+class-map type inspect match-all seq00807
+ match access-group name acl00807
+class-map type inspect match-all seq00825
+ match access-group name acl00825
+class-map type inspect match-all seq00942
+ match access-group name acl00942
+class-map type inspect match-all seq00960
+ match access-group name acl00960
+class-map type inspect match-all seq00086
+ match access-group name acl00086
+class-map type inspect match-all seq00178
+ match access-group name acl00178
+class-map type inspect match-all seq00196
+ match access-group name acl00196
+class-map type inspect match-all seq00068
+ match access-group name acl00068
+class-map type inspect match-all seq00259
+ match access-group name acl00259
+class-map type inspect match-all seq00295
+ match access-group name acl00295
+class-map type inspect match-all seq00428
+ match access-group name acl00428
+class-map type inspect match-all seq00619
+ match access-group name acl00619
+class-map type inspect match-all seq00790
+ match access-group name acl00790
+class-map type inspect match-all seq00806
+ match access-group name acl00806
+class-map type inspect match-all seq00961
+ match access-group name acl00961
+class-map type inspect match-all seq00049
+ match access-group name acl00049
+class-map type inspect match-all seq00085
+ match access-group name acl00085
+class-map type inspect match-all seq00159
+ match access-group name acl00159
+class-map type inspect match-all seq00296
+ match access-group name acl00296
+class-map type inspect match-all seq00409
+ match access-group name acl00409
+class-map type inspect match-all seq00580
+ match access-group name acl00580
+class-map type inspect match-all seq00638
+ match access-group name acl00638
+class-map type inspect match-all seq00692
+ match access-group name acl00692
+class-map type inspect match-all seq00827
+ match access-group name acl00827
+class-map type inspect match-all seq00863
+ match access-group name acl00863
+class-map type inspect match-all seq00904
+ match access-group name acl00904
+class-map type inspect match-all seq00940
+ match access-group name acl00940
+class-map type inspect match-all seq00048
+ match access-group name acl00048
+class-map type inspect match-all seq00084
+ match access-group name acl00084
+class-map type inspect match-all seq00158
+ match access-group name acl00158
+class-map type inspect match-all seq00297
+ match access-group name acl00312
+class-map type inspect match-all seq00408
+ match access-group name acl00408
+class-map type inspect match-all seq00581
+ match access-group name acl00581
+class-map type inspect match-all seq00639
+ match access-group name acl00639
+class-map type inspect match-all seq00693
+ match access-group name acl00693
+class-map type inspect match-all seq00826
+ match access-group name acl00826
+class-map type inspect match-all seq00941
+ match access-group name acl00941
+class-map type inspect match-all seq00029
+ match access-group name acl00029
+class-map type inspect match-all seq00083
+ match access-group name acl00083
+class-map type inspect match-all seq00139
+ match access-group name acl00139
+class-map type inspect match-all seq00218
+ match access-group name acl00218
+class-map type inspect match-all seq00182
+ match access-group name acl00182
+class-map type inspect match-all seq00391
+ match access-group name acl00391
+class-map type inspect match-all seq00579
+ match access-group name acl00579
+class-map type inspect match-all seq00597
+ match access-group name acl00597
+class-map type inspect match-all seq00658
+ match access-group name acl00658
+class-map type inspect match-all seq00694
+ match access-group name acl00694
+class-map type inspect match-all seq00847
+ match access-group name acl00847
+class-map type inspect match-all seq00865
+ match access-group name acl00865
+class-map type inspect match-all seq00902
+ match access-group name acl00902
+class-map type inspect match-all seq00920
+ match access-group name acl00920
+class-map type inspect match-all seq00082
+ match access-group name acl00082
+class-map type inspect match-all seq00028
+ match access-group name acl00028
+class-map type inspect match-all seq00219
+ match access-group name acl00219
+class-map type inspect match-all seq00291
+ match access-group name acl00291
+class-map type inspect match-all seq00183
+ match access-group name acl00183
+class-map type inspect match-all seq00390
+ match access-group name acl00390
+class-map type inspect match-all seq00486
+ match access-group name acl00486
+class-map type inspect match-all seq00578
+ match access-group name acl00578
+class-map type inspect match-all seq00695
+ match access-group name acl00695
+class-map type inspect match-all seq00749
+ match access-group name acl00749
+class-map type inspect match-all seq00846
+ match access-group name acl00846
+class-map type inspect match-all seq00864
+ match access-group name acl00864
+class-map type inspect match-all seq00903
+ match access-group name acl00903
+class-map type inspect match-all seq00921
+ match access-group name acl00921
+class-map type inspect match-all seq00081
+ match access-group name acl00081
+class-map type inspect match-all seq00009
+ match access-group name acl00009
+class-map type inspect match-all seq00180
+ match access-group name acl00180
+class-map type inspect match-all seq00238
+ match access-group name acl00238
+class-map type inspect match-all seq00292
+ match access-group name acl00292
+class-map type inspect match-all seq00449
+ match access-group name acl00449
+class-map type inspect match-all seq00485
+ match access-group name acl00485
+class-map type inspect match-all seq00559
+ match access-group name acl00559
+class-map type inspect match-all seq00696
+ match access-group name acl00696
+class-map type inspect match-all seq00768
+ match access-group name acl00768
+class-map type inspect match-all seq00845
+ match access-group name acl00845
+class-map type inspect match-all seq00867
+ match access-group name acl00867
+class-map type inspect match-all seq00922
+ match access-group name acl00922
+class-map type inspect match-all seq00977
+ match access-group name acl00977
+class-map type inspect match-all seq00080
+ match access-group name acl00080
+class-map type inspect match-all seq00008
+ match access-group name acl00008
+class-map type inspect match-all seq00293
+ match access-group name acl00293
+class-map type inspect match-all seq00329
+ match access-group name acl00329
+class-map type inspect match-all seq00181
+ match access-group name acl00181
+class-map type inspect match-all seq00239
+ match access-group name acl00239
+class-map type inspect match-all seq00392
+class-map type inspect match-all seq00448
+ match access-group name acl00448
+class-map type inspect match-all seq00484
+ match access-group name acl00484
+class-map type inspect match-all seq00769
+ match access-group name acl00769
+class-map type inspect match-all seq00787
+ match access-group name acl00787
+class-map type inspect match-all seq00844
+ match access-group name acl00844
+class-map type inspect match-all seq00866
+ match access-group name acl00866
+class-map type inspect match-all seq00901
+ match access-group name acl00901
+class-map type inspect match-all seq00923
+ match access-group name acl00923
+class-map type inspect match-all s0958
+!
+! 
+!
+!
+!
+!
+!
+!
+crypto ipsec transform-set ts-test esp-aes 256 esp-sha256-hmac 
+ mode tunnel
+!
+!
+crypto ipsec profile ipsec-prof-test
+ set security-association lifetime seconds 8400
+ set transform-set ts-test 
+ set pfs group14
+ set ikev2-profile ikev2-profile
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface Loopback0
+ vrf forwarding USER
+ ip address 1.1.1.1 255.255.255.255
+!
+interface Tunnel0
+ vrf forwarding IOT
+ ip address 10.100.200.1 255.255.255.252
+ tunnel source TenGigabitEthernet0/0/0
+ tunnel mode ipsec ipv4
+ tunnel destination 198.4.101.1
+ tunnel vrf USER
+ tunnel protection ipsec profile ipsec-prof-test
+!
+interface TenGigabitEthernet0/0/0
+ vrf forwarding USER
+ ip address 110.172.16.1 255.255.255.248
+ speed 1000
+ no negotiation auto
+ cdp enable
+!
+interface TenGigabitEthernet0/0/1
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/2
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/3
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/4
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/5
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/6
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/7
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/1/0
+ no ip address
+ speed 1000
+ no negotiation auto
+ cdp enable
+!
+interface TenGigabitEthernet0/1/0.1611
+ encapsulation dot1Q 1611
+ vrf forwarding USER
+ ip address 172.16.11.10 255.255.255.0
+ standby 1 ip 172.16.11.1
+ standby 1 preempt
+!
+interface TenGigabitEthernet0/1/0.1621
+ encapsulation dot1Q 1621
+ vrf forwarding IOT
+ ip address 172.16.21.10 255.255.255.0
+ standby 2 ip 172.16.21.1
+ standby 2 preempt
+!
+interface TenGigabitEthernet0/1/1
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/1/2
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/1/3
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface FortyGigabitEthernet0/2/0
+ no ip address
+ shutdown
+!
+interface FortyGigabitEthernet0/2/4
+ no ip address
+ shutdown
+!
+interface FortyGigabitEthernet0/2/8
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospf 1611 vrf USER
+ redistribute bgp 64501 metric 10 metric-type 1
+ network 1.1.1.1 0.0.0.0 area 0
+ network 172.16.11.0 0.0.0.255 area 0
+!
+router ospf 1621 vrf IOT
+ network 172.16.21.0 0.0.0.255 area 0
+!
+router bgp 64501
+ bgp router-id 110.172.16.1
+ bgp log-neighbor-changes
+ !
+ address-family ipv4 vrf USER
+  neighbor 110.172.16.4 remote-as 9999
+  neighbor 110.172.16.4 activate
+ exit-address-family
+!
+ip http server
+ip http authentication local
+ip http secure-server
+ip forward-protocol nd
+!
+ip tftp source-interface GigabitEthernet0
+!
+ip access-list extended acl00007
+ 11 permit object-group Rule00007 object-group srcip001 object-group dstip007
+ip access-list extended acl00008
+ 11 permit object-group Rule00008 object-group srcip001 object-group dstip008
+ip access-list extended acl00009
+ 11 permit object-group Rule00009 object-group srcip001 object-group dstip009
+ip access-list extended acl00010
+ 11 permit object-group Rule00010 object-group srcip001 object-group dstip010
+ip access-list extended acl00011
+ 11 permit object-group Rule00011 object-group srcip001 object-group dstip011
+ip access-list extended acl00012
+ 11 permit object-group Rule00012 object-group srcip001 object-group dstip012
+ip access-list extended acl00013
+ 11 permit object-group Rule00013 object-group srcip001 object-group dstip013
+ip access-list extended acl00014
+ 11 permit object-group Rule00014 object-group srcip001 object-group dstip014
+ip access-list extended acl00015
+ip access-list extended acl00026
+ 11 permit object-group Rule00026 object-group srcip001 object-group dstip026
+ip access-list extended acl00027
+ 11 permit object-group Rule00027 object-group srcip001 object-group dstip027
+ip access-list extended acl00028
+ 11 permit object-group Rule00028 object-group srcip001 object-group dstip028
+ip access-list extended acl00029
+ 11 permit object-group Rule00029 object-group srcip001 object-group dstip029
+ip access-list extended acl00030
+ 11 permit object-group Rule00030 object-group srcip001 object-group dstip030
+ip access-list extended acl00031
+ 11 permit object-group Rule00031 object-group srcip001 object-group dstip031
+ip access-list extended acl00032
+ 11 permit object-group Rule00032 object-group srcip001 object-group dstip032
+ip access-list extended acl00033
+ 11 permit object-group Rule00033 object-group srcip001 object-group dstip033
+ip access-list extended acl00034
+ip access-list extended acl00045
+ 11 permit object-group Rule00045 object-group srcip001 object-group dstip045
+ip access-list extended acl00046
+ 11 permit object-group Rule00046 object-group srcip001 object-group dstip046
+ip access-list extended acl00047
+ 11 permit object-group Rule00047 object-group srcip001 object-group dstip047
+ip access-list extended acl00048
+ 11 permit object-group Rule00048 object-group srcip001 object-group dstip048
+ip access-list extended acl00049
+ 11 permit object-group Rule00049 object-group srcip001 object-group dstip049
+ip access-list extended acl00050
+ 11 permit object-group Rule00050 object-group srcip001 object-group dstip050
+ip access-list extended acl00051
+ 11 permit object-group Rule00051 object-group srcip001 object-group dstip051
+ip access-list extended acl00052
+ 11 permit object-group Rule00052 object-group srcip001 object-group dstip052
+ip access-list extended acl00053
+ip access-list extended acl00064
+ 11 permit object-group Rule00064 object-group srcip001 object-group dstip064
+ip access-list extended acl00065
+ 11 permit object-group Rule00065 object-group srcip001 object-group dstip065
+ip access-list extended acl00066
+ 11 permit object-group Rule00066 object-group srcip001 object-group dstip066
+ip access-list extended acl00067
+ 11 permit object-group Rule00067 object-group srcip001 object-group dstip067
+ip access-list extended acl00068
+ 11 permit object-group Rule00068 object-group srcip001 object-group dstip068
+ip access-list extended acl00069
+ 11 permit object-group Rule00069 object-group srcip001 object-group dstip069
+ip access-list extended acl00070
+ip access-list extended acl00080
+ 11 permit object-group Rule00080 object-group srcip001 object-group dstip080
+ip access-list extended acl00081
+ 11 permit object-group Rule00081 object-group srcip001 object-group dstip081
+ip access-list extended acl00082
+ 11 permit object-group Rule00082 object-group srcip001 object-group dstip082
+ip access-list extended acl00083
+ 11 permit object-group Rule00083 object-group srcip001 object-group dstip083
+ip access-list extended acl00084
+ 11 permit object-group Rule00084 object-group srcip001 object-group dstip084
+ip access-list extended acl00085
+ 11 permit object-group Rule00085 object-group srcip001 object-group dstip085
+ip access-list extended acl00086
+ 11 permit object-group Rule00086 object-group srcip001 object-group dstip086
+ip access-list extended acl00087
+ 11 permit object-group Rule00087 object-group srcip001 object-group dstip087
+ip access-list extended acl00088
+ 11 permit object-group Rule00088 object-group srcip001 object-group dstip088
+ip access-list extended acl00089
+ip access-list extended acl00099
+ip access-list extended acl00100
+ 11 permit object-group Rule00100 object-group srcip001 object-group dstip100
+ip access-list extended acl00101
+ 11 permit object-group Rule00101 object-group srcip001 object-group dstip101
+ip access-list extended acl00102
+ 11 permit object-group Rule00102 object-group srcip001 object-group dstip102
+ip access-list extended acl00103
+ 11 permit object-group Rule00103 object-group srcip001 object-group dstip103
+ip access-list extended acl00104
+ 11 permit object-group Rule00104 object-group srcip001 object-group dstip104
+ip access-list extended acl00105
+ 11 permit object-group Rule00105 object-group srcip001 object-group dstip105
+ip access-list extended acl00106
+ 11 permit object-group Rule00106 object-group srcip001 object-group dstip106
+ip access-list extended acl00107
+ 11 permit object-group Rule00107 object-group srcip001 object-group dstip107
+ip access-list extended acl00121
+ 11 permit object-group Rule00121 object-group srcip001 object-group dstip121
+ip access-list extended acl00122
+ 11 permit object-group Rule00122 object-group srcip001 object-group dstip122
+ip access-list extended acl00123
+ 11 permit object-group Rule00123 object-group srcip001 object-group dstip123
+ip access-list extended acl00124
+ 11 permit object-group Rule00124 object-group srcip001 object-group dstip124
+ip access-list extended acl00125
+ 11 permit object-group Rule00125 object-group srcip001 object-group dstip125
+ip access-list extended acl00126
+ 11 permit object-group Rule00126 object-group srcip001 object-group dstip126
+ip access-list extended acl00140
+ 11 permit object-group Rule00140 object-group srcip001 object-group dstip140
+ip access-list extended acl00141
+ 11 permit object-group Rule00141 object-group srcip001 object-group dstip141
+ip access-list extended acl00142
+ 11 permit object-group Rule00142 object-group srcip001 object-group dstip142
+ip access-list extended acl00143
+ 11 permit object-group Rule00143 object-group srcip001 object-group dstip143
+ip access-list extended acl00144
+ 11 permit object-group Rule00144 object-group srcip001 object-group dstip144
+ip access-list extended acl00145
+ 11 permit object-group Rule00145 object-group srcip001 object-group dstip145
+ip access-list extended acl00146
+ip access-list extended acl00159
+ 11 permit object-group Rule00159 object-group srcip001 object-group dstip159
+ip access-list extended acl00160
+ 11 permit object-group Rule00160 object-group srcip001 object-group dstip160
+ip access-list extended acl00161
+ 11 permit object-group Rule00161 object-group srcip001 object-group dstip161
+ip access-list extended acl00162
+ 11 permit object-group Rule00162 object-group srcip001 object-group dstip162
+ip access-list extended acl00163
+ 11 permit object-group Rule00163 object-group srcip001 object-group dstip163
+ip access-list extended acl00164
+ 11 permit object-group Rule00164 object-group srcip001 object-group dstip164
+ip access-list extended acl00178
+ 11 permit object-group Rule00178 object-group srcip001 object-group dstip178
+ip access-list extended acl00179
+ 11 permit object-group Rule00179 object-group srcip001 object-group dstip179
+ip access-list extended acl00180
+ 11 permit object-group Rule00180 object-group srcip001 object-group dstip180
+ip access-list extended acl00181
+ 11 permit object-group Rule00181 object-group srcip001 object-group dstip181
+ip access-list extended acl00182
+ 11 permit object-group Rule00182 object-group srcip001 object-group dstip182
+ip access-list extended acl00183
+ 11 permit object-group Rule00183 object-group srcip001 object-group dstip183
+ip access-list extended acl00184
+ip access-list extended acl00197
+ 11 permit object-group Rule00197 object-group srcip001 object-group dstip197
+ip access-list extended acl00198
+ 11 permit object-group Rule00198 object-group srcip001 object-group dstip198
+ip access-list extended acl00199
+ 11 permit object-group Rule00199 object-group srcip001 object-group dstip199
+ip access-list extended acl00200
+ 11 permit object-group Rule00200 object-group srcip001 object-group dstip200
+ip access-list extended acl00201
+ 11 permit object-group Rule00201 object-group srcip001 object-group dstip201
+ip access-list extended acl00202
+ip access-list extended acl00203
+ip access-list extended acl00216
+ip access-list extended acl00217
+ip access-list extended acl00218
+ip access-list extended acl00219
+ip access-list extended acl00220
+ip access-list extended acl00221
+ip access-list extended acl00222
+ip access-list extended acl00235
+ip access-list extended acl00236
+ip access-list extended acl00237
+ip access-list extended acl00238
+ip access-list extended acl00239
+ip access-list extended acl00240
+ip access-list extended acl00241
+ip access-list extended acl00254
+ip access-list extended acl00255
+ip access-list extended acl00256
+ip access-list extended acl00257
+ip access-list extended acl00258
+ip access-list extended acl00259
+ip access-list extended acl00260
+ip access-list extended acl00273
+ 11 permit object-group Rule00273 object-group srcip001 object-group dstip273
+ip access-list extended acl00274
+ 11 permit object-group Rule00274 object-group srcip001 object-group dstip274
+ip access-list extended acl00275
+ 11 permit object-group Rule00275 object-group srcip001 object-group dstip275
+ip access-list extended acl00276
+ 11 permit object-group Rule00276 object-group srcip001 object-group dstip276
+ip access-list extended acl00277
+ 11 permit object-group Rule00277 object-group srcip001 object-group dstip277
+ip access-list extended acl00278
+ 11 permit object-group Rule00278 object-group srcip001 object-group dstip278
+ip access-list extended acl00292
+ 11 permit object-group Rule00292 object-group srcip001 object-group dstip292
+ip access-list extended acl00293
+ 11 permit object-group Rule00293 object-group srcip001 object-group dstip293
+ip access-list extended acl00294
+ 11 permit object-group Rule00294 object-group srcip001 object-group dstip294
+ip access-list extended acl00295
+ip access-list extended acl00296
+ip access-list extended acl00297
+ip access-list extended acl00310
+ip access-list extended acl00311
+ip access-list extended acl00312
+ip access-list extended acl00313
+ip access-list extended acl00314
+ip access-list extended acl00315
+ip access-list extended acl00316
+ip access-list extended acl00329
+ip access-list extended acl00330
+ip access-list extended acl00331
+ip access-list extended acl00332
+ip access-list extended acl00333
+ip access-list extended acl00334
+ip access-list extended acl00335
+ip access-list extended acl00351
+ip access-list extended acl00352
+ip access-list extended acl00353
+ip access-list extended acl00354
+ip access-list extended acl00355
+ip access-list extended acl00370
+ 11 permit object-group Rule00370 object-group srcip001 object-group dstip370
+ip access-list extended acl00371
+ 11 permit object-group Rule00371 object-group srcip001 object-group dstip371
+ip access-list extended acl00372
+ 11 permit object-group Rule00372 object-group srcip001 object-group dstip372
+ip access-list extended acl00373
+ 11 permit object-group Rule00373 object-group srcip001 object-group dstip373
+ip access-list extended acl00389
+ip access-list extended acl00390
+ip access-list extended acl00391
+ip access-list extended acl00392
+ip access-list extended acl00408
+ip access-list extended acl00409
+ip access-list extended acl00410
+ip access-list extended acl00411
+ip access-list extended acl00427
+ip access-list extended acl00428
+ip access-list extended acl00429
+ip access-list extended acl00430
+ip access-list extended acl00446
+ip access-list extended acl00447
+ip access-list extended acl00448
+ip access-list extended acl00449
+ip access-list extended acl00450
+ip access-list extended acl00465
+ 11 permit object-group Rule00465 object-group srcip001 object-group dstip465
+ip access-list extended acl00466
+ 11 permit object-group Rule00466 object-group srcip001 object-group dstip466
+ip access-list extended acl00467
+ 11 permit object-group Rule00467 object-group srcip001 object-group dstip467
+ip access-list extended acl00468
+ 11 permit object-group Rule00468 object-group srcip001 object-group dstip468
+ip access-list extended acl00484
+ip access-list extended acl00485
+ip access-list extended acl00486
+ip access-list extended acl00487
+ip access-list extended acl00503
+ 11 permit object-group Rule00503 object-group srcip002 object-group dstip003
+ip access-list extended acl00504
+ 11 permit object-group Rule00504 object-group srcip002 object-group dstip004
+ip access-list extended acl00505
+ 11 permit object-group Rule00505 object-group srcip002 object-group dstip005
+ip access-list extended acl00506
+ip access-list extended acl00522
+ 11 permit object-group Rule00522 object-group srcip002 object-group dstip022
+ip access-list extended acl00523
+ 11 permit object-group Rule00523 object-group srcip002 object-group dstip023
+ip access-list extended acl00524
+ 11 permit object-group Rule00524 object-group srcip002 object-group dstip024
+ip access-list extended acl00525
+ 11 permit object-group Rule00525 object-group srcip002 object-group dstip025
+ip access-list extended acl00541
+ 11 permit object-group Rule00541 object-group srcip002 object-group dstip041
+ip access-list extended acl00542
+ 11 permit object-group Rule00542 object-group srcip002 object-group dstip042
+ip access-list extended acl00543
+ 11 permit object-group Rule00543 object-group srcip002 object-group dstip043
+ip access-list extended acl00544
+ 11 permit object-group Rule00544 object-group srcip002 object-group dstip044
+ip access-list extended acl00560
+ 11 permit object-group Rule00560 object-group srcip002 object-group dstip060
+ip access-list extended acl00561
+ 11 permit object-group Rule00561 object-group srcip002 object-group dstip061
+ip access-list extended acl00562
+ 11 permit object-group Rule00562 object-group srcip002 object-group dstip062
+ip access-list extended acl00563
+ 11 permit object-group Rule00563 object-group srcip002 object-group dstip063
+ip access-list extended acl00579
+ 11 permit object-group Rule00579 object-group srcip002 object-group dstip079
+ip access-list extended acl00580
+ 11 permit object-group Rule00580 object-group srcip002 object-group dstip080
+ip access-list extended acl00581
+ 11 permit object-group Rule00581 object-group srcip002 object-group dstip081
+ip access-list extended acl00582
+ 11 permit object-group Rule00582 object-group srcip002 object-group dstip082
+ip access-list extended acl00598
+ 11 permit object-group Rule00598 object-group srcip002 object-group dstip098
+ip access-list extended acl00599
+ 11 permit object-group Rule00599 object-group srcip002 object-group dstip099
+ip access-list extended acl00600
+ 11 permit object-group Rule00600 object-group srcip002 object-group dstip100
+ip access-list extended acl00601
+ 11 permit object-group Rule00601 object-group srcip002 object-group dstip101
+ip access-list extended acl00617
+ 11 permit object-group Rule00617 object-group srcip002 object-group dstip117
+ip access-list extended acl00618
+ 11 permit object-group Rule00618 object-group srcip002 object-group dstip118
+ip access-list extended acl00619
+ 11 permit object-group Rule00619 object-group srcip002 object-group dstip119
+ip access-list extended acl00620
+ 11 permit object-group Rule00620 object-group srcip002 object-group dstip120
+ip access-list extended acl00636
+ 11 permit object-group Rule00636 object-group srcip002 object-group dstip136
+ip access-list extended acl00637
+ 11 permit object-group Rule00637 object-group srcip002 object-group dstip137
+ip access-list extended acl00638
+ 11 permit object-group Rule00638 object-group srcip002 object-group dstip138
+ip access-list extended acl00639
+ 11 permit object-group Rule00639 object-group srcip002 object-group dstip139
+ip access-list extended acl00640
+ip access-list extended acl00655
+ 11 permit object-group Rule00655 object-group srcip002 object-group dstip155
+ip access-list extended acl00656
+ 11 permit object-group Rule00656 object-group srcip002 object-group dstip156
+ip access-list extended acl00657
+ 11 permit object-group Rule00657 object-group srcip002 object-group dstip157
+ip access-list extended acl00658
+ 11 permit object-group Rule00658 object-group srcip002 object-group dstip158
+ip access-list extended acl00674
+ 11 permit object-group Rule00674 object-group srcip002 object-group dstip174
+ip access-list extended acl00675
+ 11 permit object-group Rule00675 object-group srcip002 object-group dstip175
+ip access-list extended acl00676
+ 11 permit object-group Rule00676 object-group srcip002 object-group dstip176
+ip access-list extended acl00677
+ 11 permit object-group Rule00677 object-group srcip002 object-group dstip177
+ip access-list extended acl00678
+ip access-list extended acl00693
+ 11 permit object-group Rule00693 object-group srcip002 object-group dstip193
+ip access-list extended acl00694
+ 11 permit object-group Rule00694 object-group srcip002 object-group dstip194
+ip access-list extended acl00695
+ 11 permit object-group Rule00695 object-group srcip002 object-group dstip195
+ip access-list extended acl00696
+ 11 permit object-group Rule00696 object-group srcip002 object-group dstip196
+ip access-list extended acl00712
+ip access-list extended acl00713
+ip access-list extended acl00714
+ip access-list extended acl00715
+ip access-list extended acl00731
+ip access-list extended acl00732
+ip access-list extended acl00733
+ip access-list extended acl00734
+ip access-list extended acl00735
+ip access-list extended acl00750
+ip access-list extended acl00751
+ip access-list extended acl00752
+ip access-list extended acl00753
+ip access-list extended acl00769
+ 11 permit object-group Rule00769 object-group srcip002 object-group dstip269
+ip access-list extended acl00770
+ 11 permit object-group Rule00770 object-group srcip002 object-group dstip270
+ip access-list extended acl00771
+ 11 permit object-group Rule00771 object-group srcip002 object-group dstip271
+ip access-list extended acl00772
+ 11 permit object-group Rule00772 object-group srcip002 object-group dstip272
+ip access-list extended acl00788
+ 11 permit object-group Rule00788 object-group srcip002 object-group dstip288
+ip access-list extended acl00789
+ 11 permit object-group Rule00789 object-group srcip002 object-group dstip289
+ip access-list extended acl00790
+ 11 permit object-group Rule00790 object-group srcip002 object-group dstip290
+ip access-list extended acl00791
+ip access-list extended acl00807
+ip access-list extended acl00808
+ip access-list extended acl00809
+ip access-list extended acl00810
+ip access-list extended acl00826
+ip access-list extended acl00827
+ip access-list extended acl00828
+ip access-list extended acl00845
+ip access-list extended acl00846
+ip access-list extended acl00847
+ip access-list extended acl00848
+ip access-list extended acl00864
+ 11 permit object-group Rule00864 object-group srcip002 object-group dstip364
+ip access-list extended acl00865
+ 11 permit object-group Rule00865 object-group srcip002 object-group dstip365
+ip access-list extended acl00866
+ 11 permit object-group Rule00866 object-group srcip002 object-group dstip366
+ip access-list extended acl00867
+ 11 permit object-group Rule00867 object-group srcip002 object-group dstip367
+ip access-list extended acl00883
+ 11 permit object-group Rule00883 object-group srcip002 object-group dstip383
+ip access-list extended acl00884
+ 11 permit object-group Rule00884 object-group srcip002 object-group dstip384
+ip access-list extended acl00885
+ 11 permit object-group Rule00885 object-group srcip002 object-group dstip385
+ip access-list extended acl00901
+ip access-list extended acl00902
+ip access-list extended acl00903
+ip access-list extended acl00904
+ip access-list extended acl0090500920
+ip access-list extended acl00920
+ip access-list extended acl00921
+ip access-list extended acl00922
+ip access-list extended acl00923
+ip access-list extended acl00939
+ip access-list extended acl00940
+ip access-list extended acl00941
+ip access-list extended acl00942
+ip access-list extended acl00943
+ip access-list extended acl00958
+ip access-list extended acl00959
+ 11 permit object-group Rule00959 object-group srcip002 object-group dstip459
+ip access-list extended acl00960
+ 11 permit object-group Rule00960 object-group srcip002 object-group dstip460
+ip access-list extended acl00961
+ 11 permit object-group Rule00961 object-group srcip002 object-group dstip461
+ip access-list extended acl00962
+ip access-list extended acl00977
+ip access-list extended acl00978
+ 11 permit object-group Rule00978 object-group srcip002 object-group dstip478
+ip access-list extended acl00979
+ip access-list extended acl00980
+!
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ transport input ssh
+!
+call-home
+ ! If contact email address in call-home is configured as sch-smart-licensing@cisco.com
+ ! the email address configured in Cisco Smart License Portal will be used as contact email address to send SCH notifications.
+ contact-email-addr sch-smart-licensing@cisco.com
+ profile "CiscoTAC-1"
+  active
+  destination transport-method http
+!
+!
+!
+!
+!
+end
+

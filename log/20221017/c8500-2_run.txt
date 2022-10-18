@@ -1,0 +1,441 @@
+C8500-2#show running-config 
+Building configuration...
+
+Current configuration : 10944 bytes
+!
+! Last configuration change at 03:23:07 UTC Mon Oct 17 2022
+!
+version 17.6
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service call-home
+platform qfp utilization monitor load 80
+platform punt-keepalive disable-kernel-core
+!
+hostname C8500-2
+!
+boot-start-marker
+boot system flash bootflash:c8000aep-universalk9.17.06.03a.SPA.bin
+boot-end-marker
+!
+!
+vrf definition IOT
+ rd 1:100
+ !
+ address-family ipv4
+ exit-address-family
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf definition USER
+ rd 64501:1
+ !
+ address-family ipv4
+ exit-address-family
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+!
+!
+!
+login on-success log
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-978200576
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-978200576
+ revocation-check none
+ rsakeypair TP-self-signed-978200576
+!
+crypto pki trustpoint SLA-TrustPoint
+ enrollment pkcs12
+ revocation-check crl
+!
+!
+crypto pki certificate chain TP-self-signed-978200576
+ certificate self-signed 01
+  3082032E 30820216 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 39373832 30303537 36301E17 0D323230 38333030 32353435 
+  315A170D 33323038 32393032 35343531 5A303031 2E302C06 03550403 1325494F 
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3937 38323030 
+  35373630 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 
+  82010100 A0A45F64 64B3D6D2 735B2E53 28E84A54 33B44827 3417486A 58A28B3F 
+  84689277 D53195C4 E5C258C2 0A39D025 AE5DE5AE 407FAE5F 3CBB2C22 65D32F51 
+  7F32B02F AD5021D1 6AF306A1 09C95C41 037BBBA8 5F4E4CAA 66B67FD8 869B9CD1 
+  5A2B69EE FA7DD5C5 E5310F1C 77DDEFF9 F2B771DA 727CEF3D 22CC8805 801D611C 
+  FC0CE8D7 A430773C 1E7D652F 47406EE0 BFD23A78 8B4EF920 3D5F9155 B9C47B40 
+  11B19DA1 6A3EDE09 06143452 480B1584 D356A85B D12F7BC2 5BB3767A CDD71700 
+  7FBD477C 8F28CED4 88BE4B11 24A78E16 8C00E600 BF168678 EEAECC87 09FD55F2 
+  803191AE 0A14ACAD 665B5662 1C17DB23 A45C9650 92C553C2 D2263ED8 C138DD67 
+  19332AF1 02030100 01A35330 51300F06 03551D13 0101FF04 05300301 01FF301F 
+  0603551D 23041830 1680145B FAEA2CBB F70DDDB4 A080AC3B 297F8F32 D4528A30 
+  1D060355 1D0E0416 04145BFA EA2CBBF7 0DDDB4A0 80AC3B29 7F8F32D4 528A300D 
+  06092A86 4886F70D 01010505 00038201 01007AFE B6CF9F89 86C24E68 C46973B9 
+  6309AF35 53446052 791F0829 8D92A51D 9A0B4AA7 A2989CD0 91CC6D4D 9D41E9A9 
+  374E2324 4DB9B71E 11290559 C19398F8 D329C54B 01F2AF1A 3D77AC5D 5F6A2773 
+  9EDA2615 F25AB0F0 FA3E1904 A959BF2C 5E69681B 7369FB1A 9F95507F D28C083C 
+  364779B3 B3E6C0C7 DD42F5A9 2A6180BB CF6FF7EF F7684A9A AC268912 8AD0A6E4 
+  75E4C2C6 2B746609 554FD310 1EFF6C74 C4A0646E 8AD274F1 C7F9A1CB 2C3F6D63 
+  A7FE6CBE D7EF45A4 26D22769 204E6635 F2AE7C82 03EB1447 006AB0F4 ADEA7BB9 
+  91701AF4 ED320D9B 55E52028 502ED1A9 9ED0AE91 8AC9473C 957F8B1A 05FDF1C5 
+  DD8CF055 9C5941C9 C1DFD58D 72C55075 3E23
+  	quit
+crypto pki certificate chain SLA-TrustPoint
+ certificate ca 01
+  30820321 30820209 A0030201 02020101 300D0609 2A864886 F70D0101 0B050030 
+  32310E30 0C060355 040A1305 43697363 6F312030 1E060355 04031317 43697363 
+  6F204C69 63656E73 696E6720 526F6F74 20434130 1E170D31 33303533 30313934 
+  3834375A 170D3338 30353330 31393438 34375A30 32310E30 0C060355 040A1305 
+  43697363 6F312030 1E060355 04031317 43697363 6F204C69 63656E73 696E6720 
+  526F6F74 20434130 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 
+  82010A02 82010100 A6BCBD96 131E05F7 145EA72C 2CD686E6 17222EA1 F1EFF64D 
+  CBB4C798 212AA147 C655D8D7 9471380D 8711441E 1AAF071A 9CAE6388 8A38E520 
+  1C394D78 462EF239 C659F715 B98C0A59 5BBB5CBD 0CFEBEA3 700A8BF7 D8F256EE 
+  4AA4E80D DB6FD1C9 60B1FD18 FFC69C96 6FA68957 A2617DE7 104FDC5F EA2956AC 
+  7390A3EB 2B5436AD C847A2C5 DAB553EB 69A9A535 58E9F3E3 C0BD23CF 58BD7188 
+  68E69491 20F320E7 948E71D7 AE3BCC84 F10684C7 4BC8E00F 539BA42B 42C68BB7 
+  C7479096 B4CB2D62 EA2F505D C7B062A4 6811D95B E8250FC4 5D5D5FB8 8F27D191 
+  C55F0D76 61F9A4CD 3D992327 A8BB03BD 4E6D7069 7CBADF8B DF5F4368 95135E44 
+  DFC7C6CF 04DD7FD1 02030100 01A34230 40300E06 03551D0F 0101FF04 04030201 
+  06300F06 03551D13 0101FF04 05300301 01FF301D 0603551D 0E041604 1449DC85 
+  4B3D31E5 1B3E6A17 606AF333 3D3B4C73 E8300D06 092A8648 86F70D01 010B0500 
+  03820101 00507F24 D3932A66 86025D9F E838AE5C 6D4DF6B0 49631C78 240DA905 
+  604EDCDE FF4FED2B 77FC460E CD636FDB DD44681E 3A5673AB 9093D3B1 6C9E3D8B 
+  D98987BF E40CBD9E 1AECA0C2 2189BB5C 8FA85686 CD98B646 5575B146 8DFC66A8 
+  467A3DF4 4D565700 6ADF0F0D CF835015 3C04FF7C 21E878AC 11BA9CD2 55A9232C 
+  7CA7B7E6 C1AF74F6 152E99B7 B1FCF9BB E973DE7F 5BDDEB86 C71E3B49 1765308B 
+  5FB0DA06 B92AFE7F 494E8A9E 07B85737 F3A58BE1 1A48A229 C37C1E69 39F08678 
+  80DDCD16 D6BACECA EEBC7CF9 8428787B 35202CDC 60E4616A B623CDBD 230E3AFB 
+  418616A9 4093E049 4D10AB75 27E86F73 932E35B5 8862FDAE 0275156F 719BB2F0 
+  D697DF7F 28
+  	quit
+!
+!
+license udi pid C8500-12X4QC sn TTM252707H9
+license accept end user agreement
+license boot level network-advantage
+memory free low-watermark processor 677397
+hw-module subslot 0/1 mode 10G
+hw-module subslot 0/2 mode 40G
+hw-module subslot 0/2 breakout none port all
+!
+!
+spanning-tree extend system-id
+diagnostic bootup level minimal
+!
+!
+redundancy
+ mode none
+!
+!
+crypto ikev2 proposal sig-test 
+ encryption aes-cbc-256
+ integrity sha256
+ group 14
+!
+crypto ikev2 policy ike-policy-test 
+ match fvrf USER
+ proposal sig-test
+!
+!
+crypto ikev2 profile ikev2-profile-C8500-2
+ match fvrf USER
+ match identity remote address 198.4.101.1 255.255.255.255 
+ authentication remote pre-share key PrismaFJ890#
+ authentication local pre-share key PrismaFJ890#
+ no lifetime certificate
+!
+crypto ikev2 profile ikev2-profile-C8500-2-tun200
+ match fvrf USER
+ match identity remote address 1.1.1.10 255.255.255.255 
+ authentication remote pre-share key PrismaFJ210#
+ authentication local pre-share key PrismaFJ210#
+ no lifetime certificate
+!
+!
+!
+cdp run
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+crypto ipsec transform-set ts-test esp-aes 256 esp-sha256-hmac 
+ mode tunnel
+!
+!
+crypto ipsec profile ipsec-prof-test
+ set security-association lifetime seconds 8400
+ set transform-set ts-test 
+ set pfs group14
+ set ikev2-profile ikev2-profile-C8500-2
+!
+crypto ipsec profile ipsec-prof-testC8500-2-tun200
+ set security-association lifetime seconds 8400
+ set transform-set ts-test 
+ set pfs group14
+ set ikev2-profile ikev2-profile-C8500-2-tun200
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface Loopback0
+ description loopback vrf user
+ vrf forwarding USER
+ ip address 1.1.1.2 255.255.255.255
+!
+interface Loopback1
+ description loopback vrf IOT
+ vrf forwarding IOT
+ ip address 2.2.2.2 255.255.255.255
+!
+interface Tunnel100
+ vrf forwarding IOT
+ ip address 10.100.200.1 255.255.255.252
+ tunnel source TenGigabitEthernet0/0/0
+ tunnel mode ipsec ipv4
+ tunnel destination 198.4.101.1
+ tunnel vrf USER
+ tunnel protection ipsec profile ipsec-prof-test
+!
+interface Tunnel200
+ vrf forwarding IOT
+ ip address 10.100.201.1 255.255.255.252
+ tunnel source TenGigabitEthernet0/0/0
+ tunnel mode ipsec ipv4
+ tunnel destination 1.1.1.10
+ tunnel vrf USER
+ tunnel protection ipsec profile ipsec-prof-testC8500-2-tun200
+!
+interface TenGigabitEthernet0/0/0
+ vrf forwarding USER
+ ip address 110.172.16.2 255.255.255.248
+ speed 1000
+ no negotiation auto
+ cdp enable
+!
+interface TenGigabitEthernet0/0/1
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/2
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/3
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/4
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/5
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/6
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/7
+ no ip address
+ shutdown
+ speed 1000
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/7.1619
+ encapsulation dot1Q 1619
+ vrf forwarding USER
+ ip address 172.16.19.2 255.255.255.0
+!
+interface TenGigabitEthernet0/0/7.1629
+ encapsulation dot1Q 1629
+ vrf forwarding IOT
+ ip address 172.16.29.2 255.255.255.0
+!
+interface TenGigabitEthernet0/1/0
+ description C9500-2
+ no ip address
+ speed 1000
+ no negotiation auto
+ cdp enable
+!
+interface TenGigabitEthernet0/1/0.1611
+ encapsulation dot1Q 1611
+ vrf forwarding USER
+ ip address 172.16.11.20 255.255.255.0
+ ip ospf cost 200
+!
+interface TenGigabitEthernet0/1/0.1621
+ encapsulation dot1Q 1621
+ vrf forwarding IOT
+ ip address 172.16.21.20 255.255.255.0
+!
+interface TenGigabitEthernet0/1/1
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/1/2
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/1/3
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface FortyGigabitEthernet0/2/0
+ no ip address
+ no negotiation auto
+!
+interface FortyGigabitEthernet0/2/4
+ no ip address
+ no negotiation auto
+!
+interface FortyGigabitEthernet0/2/8
+ no ip address
+ no negotiation auto
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ ip address dhcp
+ negotiation auto
+!
+router odr
+!
+router ospf 1611 vrf USER
+ router-id 1.1.1.2
+ capability vrf-lite
+ network 172.16.11.0 0.0.0.255 area 0
+ default-information originate
+!
+router ospf 1621 vrf IOT
+ router-id 2.2.2.2
+ capability vrf-lite
+ network 172.16.21.0 0.0.0.255 area 0
+ default-information originate
+!
+router bgp 64501
+ bgp log-neighbor-changes
+ !
+ address-family ipv4 vrf IOT
+  bgp router-id 2.2.2.2
+  network 2.2.2.2 mask 255.255.255.255
+  redistribute ospf 1621
+  neighbor 10.100.200.2 remote-as 1010
+  neighbor 10.100.200.2 activate
+  neighbor 10.100.200.2 route-map LOCAL_PREF_BGP_DGW_10.100.200.2 in
+  neighbor 172.16.21.10 remote-as 64501
+  neighbor 172.16.21.10 activate
+ exit-address-family
+ !
+ address-family ipv4 vrf USER
+  bgp router-id 1.1.1.2
+  network 1.1.1.2 mask 255.255.255.255
+  redistribute ospf 1611
+  neighbor 110.172.16.4 remote-as 9999
+  neighbor 110.172.16.4 activate
+  neighbor 172.16.11.10 remote-as 64501
+  neighbor 172.16.11.10 activate
+ exit-address-family
+!
+ip http server
+ip http authentication local
+ip http secure-server
+ip forward-protocol nd
+!
+ip tftp source-interface GigabitEthernet0
+!
+!
+ip access-list standard 1
+ 10 permit any
+!
+route-map LOCAL_PREF_BGP_DGW_10.100.200.2 permit 10 
+ set local-preference 150
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line aux 0
+line vty 0 4
+ login
+ transport input ssh
+!
+call-home
+ ! If contact email address in call-home is configured as sch-smart-licensing@cisco.com
+ ! the email address configured in Cisco Smart License Portal will be used as contact email address to send SCH notifications.
+ contact-email-addr sch-smart-licensing@cisco.com
+ profile "CiscoTAC-1"
+  active
+  destination transport-method http
+!
+!
+!
+!
+!
+!
+end

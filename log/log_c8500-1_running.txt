@@ -1,0 +1,388 @@
+C8500-1#sh run
+Building configuration...
+
+Current configuration : 9105 bytes
+!
+! Last configuration change at 05:33:28 UTC Tue Sep 27 2022
+!
+version 17.3
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service call-home
+platform qfp utilization monitor load 80
+platform punt-keepalive disable-kernel-core
+!
+hostname C8500-1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition IOT
+ !
+ address-family ipv4
+ exit-address-family
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf definition USER
+ rd 64501:1
+ !
+ address-family ipv4
+ exit-address-family
+!
+!
+aaa new-model
+!
+!
+aaa group server radius eap-server
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+login on-success log
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-116892666
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-116892666
+ revocation-check none
+ rsakeypair TP-self-signed-116892666
+!
+crypto pki trustpoint SLA-TrustPoint
+ enrollment pkcs12
+ revocation-check crl
+!
+!
+crypto pki certificate chain TP-self-signed-116892666
+ certificate self-signed 01
+  3082032E 30820216 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 31313638 39323636 36301E17 0D323230 38323430 37313735 
+  365A170D 33323038 32333037 31373536 5A303031 2E302C06 03550403 1325494F 
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3131 36383932 
+  36363630 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 
+  82010100 E8E18D7A 760EC079 234BE70E 2E5BEF4C C5E5230C AFEA9A1B FFC9D357 
+  D497A48E 35847CAC 26F7D66C 996A98D7 281FF6BB 5A64FA3D FB81EFAD A200A9F8 
+  63DF705A C3F2D310 D6784921 F4FD7F67 4EB0F928 6B82E32F 76DE0532 E95064C6 
+  E1F9558F 1BC711BE 9D65C7CA FFAF7B8C 5A0FF9BD 7A32744A 66B3904C 88921BA0 
+  16FA909A 569BF727 3EED81CD E8007E32 CF44F125 9F0B6F51 B0FA7489 AB9615BD 
+  53A85C34 2A2400CE D9B316B7 ECDB696E 79005168 B943A141 9273633F F8AF1D96 
+  8A1F8C3B 241D47CF FAE3C2B4 E1CADFD2 2CA68BC3 71980378 4B67AC6E 4887E6B3 
+  8D23437A 045D10DC 5C626B81 CBC6B7A5 05890ACF 48274BC4 CE112D8D 78A95F44 
+  7FB0374F 02030100 01A35330 51300F06 03551D13 0101FF04 05300301 01FF301F 
+  0603551D 23041830 16801401 F64FAA49 F739A3DB FA329DD1 B2AB604B 071A2830 
+  1D060355 1D0E0416 041401F6 4FAA49F7 39A3DBFA 329DD1B2 AB604B07 1A28300D 
+  06092A86 4886F70D 01010505 00038201 010098A0 BDF44325 DFED4E6A 3B6E00D7 
+  7005F97A DCFC0112 418170DD 584F0C3B 38A11752 E7D81B44 DFEEF295 622057BE 
+  CF81FE1B A3FB0601 6690A42E DBF46C68 90772992 F54DAC35 1B3766D2 A2D68816 
+  7F83AD5D D3A12FC6 3CE8DFC4 10F1779C 4005CD66 1AF6FADC 0B8FEC24 6A94BC8A 
+  856FC496 26C57583 BA38BD0E 1089879B 2650B726 80BE357F 606748C8 0257009C 
+  A1BD8155 EBF1CBA6 3BEE45EE 42D2204E 02BD0C90 31F2E347 C3C5BEC3 A1218629 
+  8E44ADEC 68E3F286 07A18C6E A2277727 918A1D4E 1754996D 56647DC4 F0CE7C6C 
+  AEBAB019 C63CA6F5 74C576DC 824915DB D1E32C43 6DAC8365 8BBA04B6 522C5F40 
+  A15D0D12 C2686923 8262521E 837E5C07 5E90
+  	quit
+crypto pki certificate chain SLA-TrustPoint
+ certificate ca 01
+  30820321 30820209 A0030201 02020101 300D0609 2A864886 F70D0101 0B050030 
+  32310E30 0C060355 040A1305 43697363 6F312030 1E060355 04031317 43697363 
+  6F204C69 63656E73 696E6720 526F6F74 20434130 1E170D31 33303533 30313934 
+  3834375A 170D3338 30353330 31393438 34375A30 32310E30 0C060355 040A1305 
+  43697363 6F312030 1E060355 04031317 43697363 6F204C69 63656E73 696E6720 
+  526F6F74 20434130 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 
+  82010A02 82010100 A6BCBD96 131E05F7 145EA72C 2CD686E6 17222EA1 F1EFF64D 
+  CBB4C798 212AA147 C655D8D7 9471380D 8711441E 1AAF071A 9CAE6388 8A38E520 
+  1C394D78 462EF239 C659F715 B98C0A59 5BBB5CBD 0CFEBEA3 700A8BF7 D8F256EE 
+  4AA4E80D DB6FD1C9 60B1FD18 FFC69C96 6FA68957 A2617DE7 104FDC5F EA2956AC 
+  7390A3EB 2B5436AD C847A2C5 DAB553EB 69A9A535 58E9F3E3 C0BD23CF 58BD7188 
+  68E69491 20F320E7 948E71D7 AE3BCC84 F10684C7 4BC8E00F 539BA42B 42C68BB7 
+  C7479096 B4CB2D62 EA2F505D C7B062A4 6811D95B E8250FC4 5D5D5FB8 8F27D191 
+  C55F0D76 61F9A4CD 3D992327 A8BB03BD 4E6D7069 7CBADF8B DF5F4368 95135E44 
+  DFC7C6CF 04DD7FD1 02030100 01A34230 40300E06 03551D0F 0101FF04 04030201 
+  06300F06 03551D13 0101FF04 05300301 01FF301D 0603551D 0E041604 1449DC85 
+  4B3D31E5 1B3E6A17 606AF333 3D3B4C73 E8300D06 092A8648 86F70D01 010B0500 
+  03820101 00507F24 D3932A66 86025D9F E838AE5C 6D4DF6B0 49631C78 240DA905 
+  604EDCDE FF4FED2B 77FC460E CD636FDB DD44681E 3A5673AB 9093D3B1 6C9E3D8B 
+  D98987BF E40CBD9E 1AECA0C2 2189BB5C 8FA85686 CD98B646 5575B146 8DFC66A8 
+  467A3DF4 4D565700 6ADF0F0D CF835015 3C04FF7C 21E878AC 11BA9CD2 55A9232C 
+  7CA7B7E6 C1AF74F6 152E99B7 B1FCF9BB E973DE7F 5BDDEB86 C71E3B49 1765308B 
+  5FB0DA06 B92AFE7F 494E8A9E 07B85737 F3A58BE1 1A48A229 C37C1E69 39F08678 
+  80DDCD16 D6BACECA EEBC7CF9 8428787B 35202CDC 60E4616A B623CDBD 230E3AFB 
+  418616A9 4093E049 4D10AB75 27E86F73 932E35B5 8862FDAE 0275156F 719BB2F0 
+  D697DF7F 28
+  	quit
+!
+!
+license udi pid C8500-12X4QC sn TTM25270305
+license accept end user agreement
+license boot level network-advantage
+memory free low-watermark processor 682859
+hw-module subslot 0/1 mode 10G
+hw-module subslot 0/2 mode 40G
+!
+!
+spanning-tree extend system-id
+diagnostic bootup level minimal
+!
+!
+redundancy
+ mode none
+!
+!
+crypto ikev2 proposal sig-test 
+ encryption aes-cbc-256
+ integrity sha256
+ group 14
+!
+crypto ikev2 policy ike-policy-test 
+ match fvrf USER
+ proposal sig-test
+!
+!
+crypto ikev2 profile ikev2-profile
+ match fvrf USER
+ match identity remote address 198.4.101.1 255.255.255.255 
+ authentication remote pre-share key PrismaFJ789#
+ authentication local pre-share key PrismaFJ789#
+ no lifetime certificate
+!
+!
+!
+cdp run
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+crypto ipsec transform-set ts-test esp-aes 256 esp-sha256-hmac 
+ mode tunnel
+!
+!
+crypto ipsec profile ipsec-prof-test
+ set security-association lifetime seconds 8400
+ set transform-set ts-test 
+ set pfs group14
+ set ikev2-profile ikev2-profile
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface Loopback0
+ vrf forwarding USER
+ ip address 1.1.1.1 255.255.255.255
+!
+interface Tunnel0
+ vrf forwarding IOT
+ ip address 10.100.200.1 255.255.255.252
+ tunnel source TenGigabitEthernet0/0/0
+ tunnel mode ipsec ipv4
+ tunnel destination 198.4.101.1
+ tunnel vrf USER
+ tunnel protection ipsec profile ipsec-prof-test
+!
+interface TenGigabitEthernet0/0/0
+ vrf forwarding USER
+ ip address 110.172.16.1 255.255.255.248
+ speed 1000
+ no negotiation auto
+ cdp enable
+!
+interface TenGigabitEthernet0/0/1
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/2
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/3
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/4
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/5
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/6
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/0/7
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/1/0
+ no ip address
+ speed 1000
+ no negotiation auto
+ cdp enable
+!
+interface TenGigabitEthernet0/1/0.1611
+ encapsulation dot1Q 1611
+ vrf forwarding USER
+ ip address 172.16.11.10 255.255.255.0
+ standby 1 ip 172.16.11.1
+ standby 1 preempt
+!
+interface TenGigabitEthernet0/1/0.1621
+ encapsulation dot1Q 1621
+ vrf forwarding IOT
+ ip address 172.16.21.10 255.255.255.0
+ standby 2 ip 172.16.21.1
+ standby 2 preempt
+!
+interface TenGigabitEthernet0/1/1
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/1/2
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface TenGigabitEthernet0/1/3
+ no ip address
+ shutdown
+ no negotiation auto
+!
+interface FortyGigabitEthernet0/2/0
+ no ip address
+ shutdown
+!
+interface FortyGigabitEthernet0/2/4
+ no ip address
+ shutdown
+!
+interface FortyGigabitEthernet0/2/8
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospf 1611 vrf USER
+ redistribute bgp 64501 metric 10 metric-type 1
+ network 1.1.1.1 0.0.0.0 area 0
+ network 172.16.11.0 0.0.0.255 area 0
+!
+router ospf 1621 vrf IOT
+ network 172.16.21.0 0.0.0.255 area 0
+!
+router bgp 64501
+ bgp router-id 110.172.16.1
+ bgp log-neighbor-changes
+ !
+ address-family ipv4 vrf USER
+  neighbor 110.172.16.4 remote-as 9999
+  neighbor 110.172.16.4 activate
+ exit-address-family
+!
+ip http server
+ip http authentication local
+ip http secure-server
+ip forward-protocol nd
+!
+ip tftp source-interface GigabitEthernet0
+!
+!
+!
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ transport input ssh
+!
+call-home
+ ! If contact email address in call-home is configured as sch-smart-licensing@cisco.com
+ ! the email address configured in Cisco Smart License Portal will be used as contact email address to send SCH notifications.
+ contact-email-addr sch-smart-licensing@cisco.com
+ profile "CiscoTAC-1"
+  active
+  destination transport-method http
+!
+!
+!
+!
+!
+end

@@ -1,0 +1,10 @@
+C8500-1#show zone security 
+zone self 65535
+  Description: System defined zone
+
+zone service 65534
+  Description: System defined zone
+
+zone internal 1
+
+zone external 2
