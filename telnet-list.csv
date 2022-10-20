@@ -1,2 +1,2 @@
 Host IP,Telnet port,Username,Telnet password, Enable password,config_file
-10.71.134.135,23,cisco,cisco,cisco,./config/20221017-ip.txt
+10.71.134.177,23,cisco,cisco,cisco,./config/20221017-ip.txt
