@@ -6,7 +6,7 @@
 
 ## How to run
 1. Go to this directory 
-2. Put your configuration file to config directory(please mkdir config on remote_config/)
+2. Put your configuration file to config directory
 3. Change the telnet-list.csv 
 4. Run the program below
 ```
