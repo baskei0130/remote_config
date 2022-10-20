@@ -17,7 +17,7 @@ lineinput = input("input the telnet list file (CSV format): ")
 telnet_list = read_file.csv_read(lineinput)
 print(telnet_list)
 
-sleep = int(input("input the sleep time(second) after one command line executed: "))
+sleep = float(input("input the sleep time(second) after one command line executed: "))
 
 # set telnet list to each parameter
 for i in range(len(telnet_list)):
