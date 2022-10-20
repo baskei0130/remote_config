@@ -13,9 +13,11 @@ import command
 
 # Read csv and put into host_list[]
 # lineinput = input("Input Telnet list file .csv:")
-lineinput = input("input the telnet list file (CSV format)") # 今回専用
+lineinput = input("input the telnet list file (CSV format): ") 
 telnet_list = read_file.csv_read(lineinput)
 print(telnet_list)
+
+sleep = input("input the sleep time(second) after one command line executed: ") 
 
 # set telnet list to each parameter
 for i in range(len(telnet_list)):
@@ -30,7 +32,7 @@ for i in range(len(telnet_list)):
 
   tn = telnetlib.Telnet(ip,port,900)
   prompt.enable(ip,port,Username,tel_password,en_password,tn)
-  command.input_conf(ip,port,config_list,tn)
+  command.input_conf(ip,port,config_list,tn, sleep)
 
   print("Done:"+ ip +"-"+ port +". Close Telnet port...")
   tn.close()

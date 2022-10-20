@@ -44,7 +44,7 @@ def output_show(ip,port,show_list,tn):
     print("### "+ log_name +"is created.")
     
 
-def input_conf(ip,port,config_list,tn):
+def input_conf(ip,port,config_list,tn, sleep):
     
     print("Commands in '", config_list,"' will be issued.")
     command_list = read_file.txt_read(config_list)
@@ -59,7 +59,7 @@ def input_conf(ip,port,config_list,tn):
     for com in command_list:
         print("... " + com)
         tn.write(com.encode('ascii') + b"\n")
-        time.sleep(0.5)
+        time.sleep(sleep)
 
     tn.write(b"end\n")
     tn.write(b"!!!!!! DONE !!!!!!" + b"\n")
